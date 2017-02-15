@@ -1,300 +1,45 @@
-<!DOCTYPE HTML>
-<html>
+<!doctype html>
+<html class="H-theme-background-color-white">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
         <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
         <title></title>
-        <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
-        <link rel="stylesheet" type="text/css" href="../../css/iconfont/iconfont.css" />
-        <style type="text/css">
-            html, body {
-                background: #f4f5f9;
-            }
-            .winu-flex-box-horizontal {
-                display: -webkit-box;
-                display: -webkit-flex;
-                display: flex;
-                -webkit-box-orient: horizontal;
-                -webkit-flex-flow: row;
-                flex-flow: row;
-                width: 100%;
-            }
-            .winu-flex-item {
-                -webkit-box-flex: 1;
-                -webkit-flex: 1;
-                flex: 1;
-            }
-            .push-fixed, .refresh-fixed {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                -webkit-border-radius: 50%;
-                background: rgba(67,133,246,0.8);
-                position: fixed;
-                bottom: 10px;
-                right: 10px;
-                z-index: 10000;
-            }
-            .refresh-fixed {
-                bottom: 60px;
-            }
-            .winu-center-all {
-                display: -webkit-box;
-                -webkit-box-orient: horizontal;
-                -webkit-box-pack: center;
-                -webkit-box-align: center;
-                display: box;
-                box-orient: horizontal;
-                box-pack: center;
-                box-align: center;
-            }
-            .push-fixed i.iconfont, .refresh-fixed i.iconfont {
-                color: #fff;
-                font-size: 20px;
-            }
-            #bbs-list {
-            }
-            #bbs-list ul li {
-                clear: both;
-                position: relative;
-                background: #fff;
-                padding: 10px 8px 10px 8px;
-                min-height: 0;
-                height: auto;
-                overflow: hidden;
-                margin-bottom: 5px;
-            }
-            #bbs-list ul li:after {
-                border-bottom: 1px solid #d7d7d7;
-                content: "";
-                position: absolute;
-                bottom: 0px;
-                left: 0px;
-                right: 0px;
-                -webkit-transform: scaleY(.5);
-                -webkit-transform-origin: 0 0;
-            }
-            .user-area img {
-                height: 40px;
-                width: 40px;
-                border-radius: 50%;
-                -webkit-border-radius: 50%;
-            }
-            .left-img {
-                display: inline-block;
-                height: 40px;
-                width: 40px;
-                position: relative;
-                vertical-align: middle;
-                margin-right: 10px;
-            }
-            .left-img .gender {
-                display: block;
-                height: 15px;
-                width: 15px;
-                border-radius: 50%;
-                -webkit-border-radius: 50%;
-                color: #fff;
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                text-align: center;
-            }
-            .left-img .gender i {
-                font-size: 10px;
-                position: relative;
-                top: -6px;
-            }
-            .left-img .gender.man {
-                background: #1d9dd5;
-            }
-            .left-img .gender.max {
-                background: #f54171;
-            }
-            .user-name {
-                line-height: normal;
-            }
-            .user-name b {
-                font-size: 14px;
-                font-weight: normal;
-            }
-            .user-name p {
-                font-size: 12px;
-                padding: 4px 0 0 0;
-            }
-            .bbs-time {
-                white-space: nowrap;
-            }
-            .bbs-time span {
-                color: #999999;
-                font-size: 12px;
-            }
-            .level {
-                display: inline-block;
-                vertical-align: middle;
-                font-size: 9px;
-                color: #fff;
-                background: #1D9DD5;
-                height: 15px;
-                line-height: 16px;
-                padding: 0 4px;
-                border-radius: 2px;
-                -webkit-border-radius: 2px;
-                margin-left: 10px;
-            }
-            .article-area {
-                margin-top: 15px;
-                display: -webkit-box;
-                display: -webkit-flex;
-                display: flex;
-                -webkit-box-orient: horizontal;
-                -webkit-flex-flow: row;
-                flex-flow: row;
-                width: 100%;
-            }
-            .article-info {
-                -webkit-box-flex: 1;
-                -webkit-flex: 1;
-                flex: 1;
-                position: relative;
-            }
-            .article-info p {
-                color: #333;
-                font-size: 15px;
-            }
-            .article-info  span {
-                padding-top: 7px;
-                display: block;
-                font-size: 9px;
-                color: #999;
-            }
-            .ims-img {
-                width: 100px;
-                height: 100px;
-                margin-left: 8px;
-                position: relative;
-            }
-            .ims-img span {
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                background: rgba(0,0,0,0.5);
-                color: #fff;
-                display: block;
-                width: 30px;
-                font-size: 10px;
-                text-align: center;
-                height: 15px;
-                line-height: 15px;
-            }
-            .article-img {
-                width: 100px;
-                height: 100px;
-            }
-            .ico-zhan {
-                display: inline-block;
-                font-size: 10px;
-                color: #fff;
-                background: #999;
-                padding: 1px 3px;
-                vertical-align: middle;
-                margin-right: 8px;
-            }
-            .ico-zhan.hot {
-                background: #fdba7d;
-            }
-            .aui-ellipsis-1, .aui-ellipsis-2 {
-                padding-right: 0 !important;
-            }
-            .bbs-title {
-                font-size: 16px;
-            }
-            .bbs-des {
-                padding-top: 10px;
-                font-size: 12px;
-                color: #999999;
-                height: 51px;
-                line-height: 22px;
-            }
-            .ico-s {
-                width: 100%;
-            }
-            .ico-s label {
-                margin-right: 8px;
-            }
-            .ico-s label i {
-                vertical-align: bottom;
-            }
-            .ico-s  font {
-                float: right;
-                display: inline-block;
-                line-height: normal;
-                margin-top: 4px;
-                position: relative;
-            }
-            .ico-s  font:before {
-                border-left: 1px solid #d7d7d7;
-                content: "";
-                position: absolute;
-                top: 0;
-                left: -1px;
-                bottom: 0;
-                -webkit-transform: scaleX(.5);
-                -webkit-transform-origin: 0 0;
-            }
-            .ico-s  font:after {
-                border-right: 1px solid #d7d7d7;
-                content: "";
-                position: absolute;
-                top: 0;
-                right: 0px;
-                bottom: 0;
-                -webkit-transform: scaleX(.5);
-                -webkit-transform-origin: 0 0;
-            }
-            .ico-s font i {
-                display: inline-block;
-                font-style: normal;
-                position: relative;
-                padding: 2px 3px 2px 3px;
-                line-height: normal;
-                color: #666;
-            }
-            .ico-s font i:before {
-                content: "";
-                position: absolute;
-                top: 0px;
-                left: 0px;
-                right: 0px;
-                border-top: 1px solid #d7d7d7;
-                -webkit-transform: scaleY(.5);
-                -webkit-transform-origin: 0 0;
-            }
-            .ico-s font i:after {
-                content: "";
-                position: absolute;
-                bottom: 0px;
-                left: 0px;
-                right: 0px;
-                border-bottom: 1px solid #d7d7d7;
-                -webkit-transform: scaleY(.5);
-                -webkit-transform-origin: 0 0;
-            }
-            #bbs-list li:active {
-                background: #f4f4f4;
-            }
-        </style>
+        <link href="../../css/css/Hui.css" rel="stylesheet" type="text/css" />
+        <style type="text/css"></style>
     </head>
-    <body>
-    <img src="785x.jpg" alt="" width="100%" height="100%"/>
-        
+    <body class="H-theme-background-color-white">
+        <div class="H-channel-title H-flexbox-horizontal H-theme-background-color-white H-vertical-middle H-border-vertical-bottom-after">
+            <div class="H-channel-line H-theme-background-color1 H-padding-vertical-top-15 H-padding-horizontal-left-3  H-margin-horizontal-left-10"></div>
+            <div class="H-channel-text H-theme-font-color1 H-flex-item H-font-size-18 H-theme-font-color-black H-padding-10 H-margin-horizontal-right-10 H-text-show-row-1">
+                抵押物详情
+            </div>
+        </div>
+        <div class="H-horizontal-center H-theme-background-color6 H-overflow-hidden H-height-120 H-position-relative H-margin-horizontal-20">
+            <div class="H-overflow-hidden H-max-width-100-percent H-padding-horizontal-both-10 H-box-sizing-border-box">
+                <div tapmode="" class="picture H-position-relative  H-margin-horizontal-auto" style="width: 96px; height: 96px;"><img src="../../image/logo.png" class="H-display-block H-border-radius-circle H-margin-vertical-top-15" alt="" title="" style="width: 90px; height: 90px; border:3px solid rgba(255,255,255,0.3);" />
+                </div>
+            </div>
+        </div>
+        <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
+            <input type="text" id="tjr-phone" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="产品" />
+        </div>
+        <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
+            <input type="text" id="tjr-phone" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="购买日期" />
+        </div>
+        <div class="H-flexbox-horizontal H-margin-vertical-bottom-10 H-border-vertical-bottom-after H-margin-vertical-top-10">
+            <textarea class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="外观状况"></textarea>
+        </div>
+        <div tapmode="" onclick="H.selectTip(H.D('#xl'), ['是', '否'])" class="H-flexbox-horizontal H-border-vertical-bottom-after H-margin-vertical-top-10">
+            <input type="text" id="xl" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="是否有发票" readonly="readonly" />
+            <span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
+        </div>
+        <div class="H-padding-10">
+            <button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3">
+                立即提交
+            </button>
+        </div>
+        <script src="../../script/H.js" type="text/javascript"></script>
+        <script type="text/javascript"></script>
     </body>
-    <script type="text/javascript" src="../../script/api.js"></script>
-    <script type="text/javascript" src="../../script/AHelper.js"></script>
-    <script type="text/javascript" src="../../script/zepto.min.js"></script>
-    <script type="text/javascript" src="../../script/echo.min.js"></script>
-    <script type="text/javascript" src="../../script/date.js"></script>
-    <script type="text/javascript" src="../../script/app.js"></script>
-    
 </html>
