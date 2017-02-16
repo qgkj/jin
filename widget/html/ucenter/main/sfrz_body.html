@@ -17,9 +17,12 @@
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
         <input type="text" id="shenfen" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="身份证号码" />
     </div>
-    <div class="H-flexbox-horizontal H-margin-vertical-bottom-10 H-border-vertical-bottom-after H-margin-vertical-top-10">
-        <textarea class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="常住详细地址..." id="dizhi"></textarea>
+    <div tapmode="" onclick="H.selectTip(H.D('#hy'), ['山东大学', '济南大学', '山东师范大学历山学院', '山东财经大学燕山学院', '济南大学泉城学院','山东建筑大学','齐鲁工业大学','山东中医药大学','山东师范大学','山东财经大学','山东体育学院','山东艺术学院','山东工艺美术学院','山东交通学院','山东女子学院','山东英才学院','山东现代学院','山东协和学院','齐鲁理工学院','山东政法学院','齐鲁师范学院','山东青年政治学院','山东管理学院','山东农业工程学院','山东商业职业技术学院','山东电力高等专科学校','山东职业学院','山东劳动职业技术学院','山东力明科技职业学院','山东圣翰财贸职业学院','济南职业学院','山东凯文科技职业学院','济南工程职业技术学院','山 东电子职业技术学院','山东旅游职业学院','山东城市建设职业学院','山东传媒职业学院','济南幼儿师范高等专科学校','济南护理职业学院','山东艺术设计职业学院','山东特殊教育职业学院','山东力明学院'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
+        <input type="text" id="hy" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="常住详细地址" readonly="readonly" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
     </div>
+    <!-- <div tapmode="" onclick="H.selectTip(H.D('#xl'), ['山东大学', '济南大学', '山东师范大学历山学院', '山东财经大学燕山学院', '济南大学泉城学院','山东建筑大学','齐鲁工业大学','山东中医药大学','山东师范大学','山东财经大学','山东体育学院','山东艺术学院','山东工艺美术学院','山东交通学院','山东女子学院','山东英才学院','山东现代学院','山东协和学院','齐鲁理工学院','山东政法学院','齐鲁师范学院','山东青年政治学院','山东管理学院','山东农业工程学院','山东商业职业技术学院','山东电力高等专科学校','山东职业学院','山东劳动职业技术学院','山东力明科技职业学院','山东圣翰财贸职业学院','济南职业学院','山东凯文科技职业学院','济南工程职业技术学院','山 东电子职业技术学院','山东旅游职业学院','山东城市建设职业学院','山东传媒职业学院','济南幼儿师范高等专科学校','济南护理职业学院','山东艺术设计职业学院','山东特殊教育职业学院','山东力明学院'])" class="H-flexbox-horizontal H-border-vertical-bottom-after H-margin-vertical-top-10">
+        <input type="text" id="xl" class="H-textbox H-vertical-align- middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none  H-outline-none H-padding-12" placeholder="常住详细地址" readonly="readonly" /><span  class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color- white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme- font-color-999"></i></span>
+    </div> -->
     <div tapmode="" onclick="H.selectTip(H.D('#xl'), ['成人教育', '大专', '本科', '博士', '研究生'])" class="H-flexbox-horizontal H-border-vertical-bottom-after H-margin-vertical-top-10">
         <input type="text" id="xl" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="请选择学历" readonly="readonly" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
     </div>
@@ -50,7 +53,7 @@
         function mcm_insert(){
             var ac = value('xingming');
             var bc = value('shenfen');
-            var ax = value('dizhi');
+            var ax = value('hy');
             var cx = value('xl');
             var dc = {name:ac, number:bc, address:ax, xueli:cx};
             var param = {class:clazz, value:dc};
