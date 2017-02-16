@@ -10,7 +10,7 @@
     <style type="text/css"></style>
 </head>
 <body>
-    <div><input type="text" value="Endo" id="clzz"/></div>
+<!--     <div><input type="text" value="Endo" id="clzz"/></div> -->
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
         <input type="text" id="xingming" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="真实姓名" />
     </div>
@@ -44,14 +44,7 @@
         
         var clazz = "Endo";
         
-        function checkClass(){
-            clazz = value('clzz');
-        }
-        
-        var dataCount = 0;
-        
         function mcm_insert(){
-            checkClass();
             var ac = value('xingming');
             var bc = value('shenfen');
             var ax = value('dizhi');
@@ -62,9 +55,9 @@
             mcm.insert(param, function(ret, err){
                 finishing();
                 if(ret){
-                    showAlert(JSON.stringify(ret));
+                    showAlert("提交成功");
                 }else{
-                    showAlert(JSON.stringify(err));
+                    showAlert("提交失败，请检查网络设置！");
                 }
             });
         }
