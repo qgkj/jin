@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont/iconfont.css" />
+		<script type="text/javascript" src="../../script/common.js"></script>
+		<script type="text/javascript" src="../../script/AHelper.js"></script>
+		<script type="text/javascript" src="../../script/zepto.min.js"></script>
+		<style type="text/css">
+			html, body {
+				background: rgba(0,0,0,0);
+			}
+			body {
+			}
+			.top-area {
+			}
+			.logo {
+				height: 150px;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				display: box;
+				box-orient: horizontal;
+				box-pack: center;
+				box-align: center;
+			}
+			.login-area {
+				text-align: center;
+				white-space: nowrap;
+			}
+			.login-area img {
+				width: 75px;
+				height: 75px;
+				border-radius: 8px;
+				-webkit-border-radius: 8px;
+			}
+			.login-area p {
+				padding: 5px 0 0 0;
+				font-size: 15px;
+				color: #fff;
+			}
+			.form {
+				padding: 0 30px;
+			}
+			.form-row {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: horizontal;
+				-webkit-flex-flow: row;
+				flex-flow: row;
+				width: 100%;
+				padding: 15px;
+				border-bottom: 1px solid #3e8dce;
+			}
+			.form-row span {
+				display: block;
+				width: 50px;
+				color: rgba(255,255,255,0.7);
+			}
+			.form-row span {
+				font-size: 22px;
+			}
+			.form-row .input-box {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+				padding-top: 2px;
+			}
+			.form-row .input-box input {
+				background: rgba(0,0,0,0);
+				border: none;
+				outline: none;
+				color: rgba(255,255,255,0.9);
+				padding: 4px;
+				margin: 0;
+			}
+			.form-btn {
+				padding: 30px 30px 15px 30px;
+			}
+			.aui-btn-4385f6 {
+				background: #4385f6 !important;
+				color: #f9f9f9 !important;
+				border: none;
+				outline: none;
+			}
+			.form-btn button:active {
+				background: rgba(67,133,246,0.8) !important;
+			}
+			.getcode {
+				color: #fff;
+				line-height: 33px;
+			}
+			.showpwd {
+				color: #fff;
+				line-height: 33px;
+				font-size:20px;
+			}
+			.form-o {
+				padding: 0 30px;
+			}
+			.form-o span {
+				float: left;
+				color: #f9f9f9;
+				font-size:13px;
+			}
+		</style>
+		<script type="text/javascript">
+		var mcm = null;
+		var user = null;
+		
+		apiready = function(){
+	    	mcm = api.require('model');
+	    	user = api.require('user');
+	    	//在线编译正式版时，可以不用配置,APICloud会取当前应用的配置
+	    	mcm.config({
+          appId:"A6915918961135", 
+          appKey:"02E0067E-57AF-1EBB-12AF-05666A9278D4", 
+          url:'https://d.apicloud.com'
+        });
+	    }
+
+		function mcm_register(){
+			var uname = value('ri_1');
+			var psw = value('ri_2');
+			var eml = value('ri_3');
+			if(!uname){
+				showAlert("username can not be empty!");
+				return;
+			}
+			if(!psw){
+				showAlert("password can not be empty!");
+				return;
+			}
+			var param = {username:uname, password:psw};
+			if(eml){
+				param.email = psw;
+				param.mobile = eml;
+			}
+			loading();
+			user.register(param, function(ret, err){
+				finishing();
+				if(ret.error){
+					showAlert("注册失败，用户已存在");
+				}else{
+					showAlert("注册成功!\n" + JSON.stringify(err));
+					H.$openFrame('index_head','../index_head.html');
+				}
+			});
+		}
+	</script>
+	</head>
+	<body>
+		<div class="top-area">
+			<div class="logo">
+				<div class="login-area">
+					
+				</div>
+			</div>
+
+
+			<!-- <div class="form">
+				<div class="form-area">
+					<div class="form-row">
+						<span class="iconfont icon-youxiang H-theme11-color">&nbsp;&nbsp;|</span>
+						<div class="input-box">
+							<input class="H-theme11-color" type="number" id="ri_1" name="uname" value="" placeholder="请输入用户名" />
+						</div>
+					</div>
+					<div class="form-row">
+						<span class="iconfont icon-password H-theme11-color">&nbsp;&nbsp;|</span>
+						<div class="input-box">
+							<input class="H-theme11-color" type="password" id="ri_2" name="psw" value="" placeholder="请输入密码" />
+						</div>
+						<p class="iconfont icon-yey2 showpwd"></p>
+					</div>
+					<div class="form-row">
+						<span class="iconfont icon-yanzhengma H-theme11-color">&nbsp;&nbsp;|</span>
+						<div class="input-box">
+							<input class="H-theme11-color" type="number" id="ri_3" name="vcode" value="" placeholder="请输入邀请码" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-btn">
+				<button class="aui-btn aui-btn-4385f6 aui-btn-block" id="login-btn" tapmode="active" onclick="mcm_register()">
+					注册
+				</button>
+			</div> -->
+
+			
+		<input type="text" id="ri_1" class="input input-s" placeholder="请输入用户名"/>
+					<input type="password" id="ri_2" class="input input-s" placeholder="请输入密码"/>
+					<input type="text" id="ri_3" class="input input-s" placeholder="请输入手机号"/>
+					<div class="aui-btn aui-btn-4385f6 aui-btn-block" tapmode="active" onclick="mcm_register()" >注册</div>
+		</div>
+</body>
+<!-- <script type="text/javascript">
+						function register() {
+                               api.showProgress();
+                               var username = $("#username").val();
+                               var email = $("#email").val();
+                               var mobile = $("#mobile").val();
+                               var password = $("#password").val();
+                               var pas2 = $("#re_password").val();
+                               if (email != "") {
+                                       var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                                       isok = reg.test(email);
+                                       if (!isok) {
+                                               api.hideProgress();
+                                               alert("邮箱格式不正确，请重新输入！");
+                                               $("#email").focus();
+                                               return false;
+                                       }
+                               };
+                               if (password == pas2) {
+                                       var model = api.require('model');
+                                       model.insert({
+                                               class : 'user',
+                                               value : {
+                                                       username : username,
+                                                       password : password,
+                                                       email : email,
+                                                       mobile : mobile
+                                               }
+                                       }, function(ret, err) {
+                                               api.hideProgress();
+                                               if (!ret.error && ret.id) {
+                                                       api.alert({
+                                                               title : '注册成功',
+                                                               msg : ret.username + "注册成功！",
+                                                               buttons : ['确定']
+                                                       }, function(a_ret, a_err) {
+                                                               if (a_ret.buttonIndex == 1) {
+                                                                       api.closeWin();
+                                                               }
+                                                       });
+                                               } else if (ret.error && (ret.error.statusCode == 202)) {
+                                                       alert("用户名已存在！");
+                                                       $("#username").focus();
+                                               } else if (ret.error && (ret.error.statusCode == 201)) {
+                                                       alert("用户名不能为空！");
+                                                       $("#username").focus();
+                                               } else {
+                                                       alert("输入错误!");}
+                                        });
+                                } else {
+                                        api.hideProgress();
+                                        alert("两次输入密码不一致！");
+                                        $("#password").focus();
+                                }
+                        }
+</script> -->
+</html>
