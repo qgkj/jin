@@ -140,6 +140,7 @@
 			var param = {username:uname, password:psw};
 			if(eml){
 				param.email = psw;
+				param.mobile = eml;
 			}
 			loading();
 			user.register(param, function(ret, err){
@@ -191,7 +192,7 @@
 			</div> -->
 		<input type="text" id="ri_1" class="input input-s" placeholder="请输入用户名"/>
 					<input type="password" id="ri_2" class="input input-s" placeholder="请输入密码"/>
-					<input type="text" id="ri_3" class="input input-s" placeholder="请输入邮箱"/>
+					<input type="text" id="ri_3" class="input input-s" placeholder="请输入手机号"/>
 					<div class="aui-btn aui-btn-4385f6 aui-btn-block" tapmode="active" onclick="mcm_register()" >注册</div>
 		</div>
 </html>
