@@ -158,34 +158,34 @@
 			</div>
 			<div class="user-account">
 				<span>帮分期</span>
-				<span class="aui-ellipsis-1">是人都能下贷款！</span>
+				<span class="aui-ellipsis-1">专注学生的分期周转平台！</span>
 			</div>
 		</div>
 		<div class="aui-content winu-flex-item">
 			<ul class="aui-list-view aui-in" id="case-function-list">
-				<li class="aui-list-view-cell" tapmode data-funcName="banka">
+				<li class="aui-list-view-cell" tapmode data-funcName="jiekuan">
 					<div class="aui-arrow-right">
-						<i class="aui-iconfont iconfont icon-buju"></i>办卡
+						<i class="aui-iconfont iconfont icon-luyinbi"></i>借款
 					</div>
 				</li>
-				<li class="aui-list-view-cell" tapmode data-funcName="daikuan">
+				<li class="aui-list-view-cell" tapmode data-funcName="huankuan">
 					<div class="aui-arrow-right">
-						<i class="aui-iconfont iconfont icon-wangpan"></i>贷款
+						<i class="aui-iconfont iconfont icon-renwu"></i>还款
 					</div>
 				</li>
-				<li class="aui-list-view-cell" tapmode data-funcName="tie">
+				<li class="aui-list-view-cell" tapmode data-funcName="jindu">
 					<div class="aui-arrow-right">
-						<i class="aui-iconfont iconfont icon-luyinbi"></i>提额
+						<i class="aui-iconfont iconfont icon-richangshiwu"></i>申请进度
 					</div>
 				</li>
-				<li class="aui-list-view-cell" tapmode data-funcName="chongzhi">
+				<li class="aui-list-view-cell" tapmode data-funcName="diya">
 					<div class="aui-arrow-right">
-						<i class="aui-iconfont iconfont icon-pengyouquanyin"></i>充值
+						<i class="aui-iconfont iconfont icon-dianyinguanfang"></i>抵押
 					</div>
 				</li>
-				<li class="aui-list-view-cell" tapmode data-funcName="kefu">
+				<li class="aui-list-view-cell" tapmode data-funcName="shuoming">
 					<div class="aui-arrow-right">
-						<i class="aui-iconfont iconfont icon-qq"></i>客服
+						<i class="aui-iconfont iconfont icon-jilu"></i>产品说明
 					</div>
 				</li>
 			</ul>
@@ -201,7 +201,7 @@
 		Zepto(function() {
 			$("#case-function-list").on("tap", "li", function() {
 				var funcName = $(this).attr("data-funcName");
-				H.$openWin(funcName, '../case/' + funcName + '/' + funcName + '.html');
+				H.$openWin(funcName, '../case/' + funcName + '/' + funcName + '_head.html');
 			});
 			$(".settings").on("tap", function() {
 				H.$removePrefs(null, 'user_info');
