@@ -18,7 +18,7 @@
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
         <input type="text" id="tjr-phone" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="联系电话" />
     </div>
-    <div class="H-flexbox-horizontal H-border-vertical-bottom-after H-margin-vertical-top-10">
+   <!--  <div class="H-flexbox-horizontal H-border-vertical-bottom-after H-margin-vertical-top-10">
         <input type="text" id="tjr-name2" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="备用联系人" /><span tapmode="" onclick="H.openContacts(function (ret, err) { if (ret.status) { H.D('#tjr-name2').value = ret.name; H.D('#tjr-phone2').value = ret.phone.replace('-',''); } });" class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-contacts H-font-size-26 H-vertical-middle H-theme-font-color6"></i></span>
     </div>
     <div tapmode="" onclick="H.selectTip(H.D('#hy'), ['父子', '母子', '姐妹', '兄弟'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
@@ -26,7 +26,7 @@
     </div>
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
         <input type="text" id="tjr-phone2" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="联系电话" />
-    </div>
+    </div> -->
     <div class="H-padding-10">
         <button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3" tapmode="active" onclick="mcm_insert()">提交保存</button>
     </div>
@@ -55,10 +55,10 @@
             var ac = value('tjr-name');
             var bc = value('xl');
             var ax = value('tjr-phone');
-            var cx = value('tjr-name2');
-            var dx = value('hy');
-            var wx = value('tjr-phone2');
-            var dc = {qinshu1:ac, guanxi1:bc, phone1:ax, qinshu2:cx, guanxi2:dx, phone2:wx};
+            // var cx = value('tjr-name2');
+            // var dx = value('hy');
+            // var wx = value('tjr-phone2');, qinshu2:cx, guanxi2:dx, phone2:wx
+            var dc = {qinshu1:ac, guanxi1:bc, phone1:ax};
             var param = {class:clazz, value:dc};
             loading();
             mcm.insert(param, function(ret, err){
