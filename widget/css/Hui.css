@@ -281,6 +281,7 @@ body { font-size: 1.6rem; background: #f4f5f9; width: 100%; height: 100%; color:
 .H-theme1-border:after { width: 200%; height: 200%; display: block; content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; -webkit-transform-origin: 0 0; -webkit-transform: scale(0.5); pointer-events: none; border: 1px solid #1698f0 !important; overflow: hidden; }
 .H-theme2-bg { background: #ff7f8a !important; }
 .H-theme2-color { color: #ff7f8a !important; }
+.H-theme82-color { color: #ff0016 !important; }
 .H-theme2-border { position: relative; }
 .H-theme2-border:after { width: 200%; height: 200%; display: block; content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; -webkit-transform-origin: 0 0; -webkit-transform: scale(0.5); pointer-events: none; border: 1px solid #ff7f8a !important; overflow: hidden; }
 .H-theme3-bg { background: #3c4146 !important; }
