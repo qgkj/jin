@@ -178,8 +178,7 @@
             $api.rmStorage('isLogin');
         }
         $api.dom('.user-wrap').innerHTML = '';
-        var ht =  ret.username ;
-
+        var ht =  '     <h6 class="row-nowrap" >'+ret.username+'</h6>'
         $api.append( $api.dom('.user-wrap'), ht );
         $api.removeCls( $api.dom( '.user-wrap' ), 'none' );
         api.parseTapmode(); 
