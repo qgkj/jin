@@ -78,8 +78,10 @@
         var mcm = null;
         var query = null;
         var clazzNode = null;
+        var model = null;
         apiready = function(){
             mcm = api.require('model');
+            model = api.require('model');
             query = api.require('query');
             clazzNode = "身份证";
             //在线编译正式版时，可以不用配置,APICloud会取当前应用的配置
