@@ -100,9 +100,10 @@
         }
         
         var clazz = "erci";
-        
-        function check{
-        	var phone = $api.dom('#phone');
+
+        function mcm_insert(){
+        if (! $api.hasCls(tag, 'disabled')) {
+            var phone = $api.dom('#phone');
             if (!$api.val(phone)) {
                     $api.toast('手机不能为空！');
             } else if (! /^1\d{10}$/.exec($api.val(phone))) {
@@ -110,10 +111,8 @@
             } else if (!$api.val(xl)) {
                     $api.toast('合同不能为空！');
             }
-        }
-        function mcm_insert(){
-            check;
-            var ac = value('phone');
+        } else{
+        	var ac = value('phone');
             var bc = value('xl');
             var dc = {username:ac, hetong:bc};
             var param = {class:clazz, value:dc};
@@ -128,6 +127,8 @@
                     showAlert("提交失败，请检查网络设置！");
                 }
             });
+        }
+            
         }
         
         function mcm_insertAll(){

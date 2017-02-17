@@ -10,6 +10,17 @@
         <style type="text/css"></style>
     </head>
     <body>
+    <div id="progress">
+            <canvas id="myCanvas" width="100" height="100"></canvas>
+            <div id="txt">
+                <div>
+                    <font id="per" size="2">0</font>
+                    <font size="2">%</font>
+                </div>
+                <div><font size="2">已花费时间</font></div>
+                <div><font id="time" size="2">0s</font></div>
+            </div>
+    </div>
         <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
             <input type="text" id="xingming" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="真实姓名" />
         </div>
@@ -24,6 +35,9 @@
             <input type="text" id="hy" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="请选择学校" readonly="readonly" />
             <span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
         </div>
+
+        <div class="btn" tapmode="active" onclick="comitImgData()" >点击上传身份证正面</div>
+        <div class="btn" tapmode="active" onclick="comitImgData()" >点击上传身份证正面</div>
         <div class="H-padding-10">
             <button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3" tapmode="active" onclick="mcm_insert()">
                 提交保存
@@ -35,9 +49,11 @@
     <script type="text/javascript">
         var mcm = null;
         var query = null;
+        var clazzNode = null;
         apiready = function(){
             mcm = api.require('model');
             query = api.require('query');
+            clazzNode = "身份证";
             //在线编译正式版时，可以不用配置,APICloud会取当前应用的配置
             mcm.config({
                 appId:"A6915918961135", 
@@ -45,7 +61,51 @@
                 url:'https://d.apicloud.com'
             });
         }
-        
+
+        function capPicture(callback) {
+            api.getPicture({
+                sourceType: 'library',
+                encodingType: 'png',
+                mediaValue: 'pic',
+                destinationType: 'url'
+            }, function (ret, err) {
+                console.log('获取图片：\n' + JSON.stringify(ret));
+                callback(ret.data, err);
+            });
+        }
+
+        function comitImgData(){
+            capPicture(function(url){
+                if(url){
+                    var dt = {
+                        file:{
+                            name:clazzNode, //设置文件名
+                            url:url //文件本地地址
+                        },
+                        values:{//保留字段
+                        
+                        }
+                    }
+                    progress.reset();
+                    model.uploadFile({
+                        data:dt,
+                        report:true
+                    }, updatePercent);
+                }
+            });
+        }
+
+        //更新进度
+        function updatePercent(ret, err){
+            if(0 == ret.state){
+                //loading('进度：' + ret.progress);
+                progress.step(ret.progress);
+            }else{
+                //finishing();
+                showAlert('上传成功：\n' + JSON.stringify(ret));
+            }
+        }
+
         var clazz = "Endo";
         
         function mcm_insert(){
