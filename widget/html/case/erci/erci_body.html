@@ -101,8 +101,8 @@
         
         var clazz = "erci";
         
-        function mcm_insert(){
-            var phone = $api.dom('#phone');
+        function check{
+        	var phone = $api.dom('#phone');
             if (!$api.val(phone)) {
                     $api.toast('手机不能为空！');
             } else if (! /^1\d{10}$/.exec($api.val(phone))) {
@@ -110,6 +110,9 @@
             } else if (!$api.val(xl)) {
                     $api.toast('合同不能为空！');
             }
+        }
+        function mcm_insert(){
+            check;
             var ac = value('phone');
             var bc = value('xl');
             var dc = {username:ac, hetong:bc};
