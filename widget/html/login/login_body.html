@@ -164,7 +164,7 @@
         display: -webkit-box;
       }
     </style>
-    <script type="text/javascript">
+<!--     <script type="text/javascript">
     var mcm = null;
     var user = null;
     
@@ -209,7 +209,7 @@
         }
       });
     }
-  </script>
+  </script> -->
   </head>
   <body>
     <div class="top-area">
@@ -223,19 +223,19 @@
           <div class="form-row">
             <span class="iconfont icon-phone H-theme10-color">&nbsp;&nbsp;|</span>
             <div class="input-box">
-              <input class="H-theme10-color" type="text" name="username" id="username" value="" placeholder="请输入手机号" />
+              <input class="H-theme10-color" type="text" name="lo-phone" id="lo-phone" value="" placeholder="请输入手机号" />
             </div>
           </div>
           <div class="form-row">
             <span class="iconfont icon-password H-theme10-color">&nbsp;&nbsp;|</span>
             <div class="input-box">
-              <input class="H-theme10-color" type="password" name="password" id="password" value="" placeholder="请输入密码" />
+              <input class="H-theme10-color" type="password" name="lo-password" id="lo-password" value="" placeholder="请输入密码" />
             </div>
           </div>
         </div>
       </div>
       <div class="form-btn">        
-        <input type="submit" value="登录" class="aui-btn aui-btn-4385f6 aui-btn-block" tapmode="active" onclick="mcm_login()">
+        <input type="submit" value="登录" class="aui-btn aui-btn-4385f6 aui-btn-block" tapmode="active" onclick="funLog( this );">
       </div>
       
       <div class="form-o">
@@ -248,5 +248,52 @@
   <script type="text/javascript" src="../../script/zepto.min.js"></script>
   <script type="text/javascript" src="../../script/api.js"></script>
   <script type="text/javascript" src="../../script/config.js"></script>
+  <script type="text/javascript">
+    apiready = function(){
+    $api.skin();
+    $api.removeCls( $api.dom( '.'+api.winName ), 'none' );
+    if( api.winName == 'personl-frm' ){
+      funEachData( $api.getStorage( 'user' ) );
+    }
+  }
   
+  function funLog( tag ){
+    if( ! $api.hasCls( tag ,'disabled' ) ){
+      var phone = $api.dom('#lo-phone');
+      var password = $api.dom('#lo-password');
+      if( !$api.val( phone ) ){
+        $api.toast( '手机不能为空！' );
+      }else if(  !$api.val( password )  ){
+        $api.toast( '密码不能为空！' );
+      }else{
+        $api.addCls( tag, 'disabled' );
+        setTimeout(function(){
+          $api.removeCls( tag, 'disabled' );
+        },5000);
+        var bodyParam = {
+          username: $api.val( phone ),
+          password: $api.val( password )
+        }
+        $api.ajax('/user/login', 'post', bodyParam, function (ret, err) {
+          if (ret) {
+            $api.setStorage( 'accessToken' , ret.id );  
+            $api.setStorage( 'isLogin' , true);   // 是否初始化首页频道
+            $api.setStorage( 'isGro-article' , true);   // 当前在 ”我的“ 界面时初始化首页隐藏首页 Group 
+            api.execScript({
+                name: 'root',
+                frameName: 'me-list',
+                script: 'funQueryUser( \''+ret.userId+'\' );'
+            });
+            showAlert('登录成功！');//登录成功将返回用户基本信息
+            H.$openFrame('index_head','../index_head.html');
+          } else {
+            $api.toast( err.msg );
+          }
+          $api.removeCls( tag, 'disabled' );
+        });
+      
+      };
+    };
+  };
+  </script>
 </html>
