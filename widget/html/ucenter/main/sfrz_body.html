@@ -7,7 +7,35 @@
         <title></title>
         <link href="../../../css/css/iconfont/iconfont.css" rel="stylesheet" />
         <link href="../../../css/css/Hui.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="../../../css/css/common.css" />
+    <script type="text/javascript" src="../../../script/mcm/common.js"></script>
         <style type="text/css"></style>
+        <style>
+        #progress{
+            position:absolute;
+            top:10px;
+            right:10px;
+            width:100px;
+            height:100px;
+            display:-webkit-box;
+            -webkit-box-pack:center;
+            -webkit-box-align:center;
+            -webkit-box-orient: vertical;
+            display:none;
+        }
+        
+        #txt{
+            width:100px;
+            height:100px;
+            position:absolute;
+            top:0;
+            left:0;
+            display:-webkit-box;
+            -webkit-box-pack:center;
+            -webkit-box-align:center;
+            -webkit-box-orient: vertical;
+        }
+    </style>
     </head>
     <body>
     <div id="progress">
@@ -37,7 +65,7 @@
         </div>
 
         <div class="btn" tapmode="active" onclick="comitImgData()" >点击上传身份证正面</div>
-        <div class="btn" tapmode="active" onclick="comitImgData()" >点击上传身份证正面</div>
+        <div class="btn" tapmode="active" onclick="comitImgData()" >点击上传身份证反面</div>
         <div class="H-padding-10">
             <button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3" tapmode="active" onclick="mcm_insert()">
                 提交保存
@@ -131,5 +159,68 @@
             ;
         }
     </script>
+    <script>
+
+    function Progress(){
+        this.b = 0;
+        this.self = null;
+        this.per = null
+        this.time = null;
+        this.context = null;
+        this.init = function(){
+            var canvas = document.getElementById('myCanvas');
+            this.context = canvas.getContext('2d');
+            this.context.clearRect(0, 0, 100, 100);
+            this.per = document.getElementById('per');
+            this.time = document.getElementById('time');
+            this.self = document.getElementById('progress');
+        }
+        this.reset = function(){
+            this.b = new Date().getTime();
+            this.time.innerHTML = '0秒'; 
+            this.per.innerHTML = '0'; 
+            this.self.style.display = 'block';
+        }
+        this.step = function(process){
+            var now = new Date().getTime();
+            var step = (now - this.b) / 1000;
+            this.time.innerHTML = parseInt(step) + '秒'; 
+            this.per.innerHTML = parseInt(process);
+            var ctx = this.context; 
+            ctx.beginPath();  
+            ctx.moveTo(50, 50);  
+            ctx.arc(50, 50, 50, 0, Math.PI * 2, false);  
+            ctx.closePath();  
+            ctx.fillStyle = '#ddd';  
+            ctx.fill();  
+            ctx.beginPath();  
+            ctx.moveTo(50, 50);  
+            ctx.arc(50, 50, 50, 0, Math.PI * 2 * process / 100, false);  
+            ctx.closePath();  
+            ctx.fillStyle = '#e74c3c';  
+            ctx.fill();  
+            ctx.beginPath();  
+            ctx.moveTo(50, 50);  
+            ctx.arc(50, 50, 45, 0, Math.PI * 2, true);  
+            ctx.closePath();  
+            ctx.fillStyle = 'rgba(125,125,125,0.3)';  
+            ctx.fill();
+            ctx.beginPath();  
+            ctx.arc(50, 50, 40, 0, Math.PI * 2, true);  
+            ctx.closePath();  
+            ctx.strokeStyle = '#ddd';  
+            ctx.stroke();
+            if(100 == process){
+                setTimeout(function(){
+                    progress.self.style.display = 'none';
+                }, 2000);
+            }
+        }
+    }
+
+    var progress = new Progress();
+    progress.init();
+
+</script>
     </body>
 </html>
