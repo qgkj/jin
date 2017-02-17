@@ -217,6 +217,9 @@
       <div class="logo">
 
       </div>
+      <ul class="find none user-wrap">
+       
+      </ul>
         <div class="form">
         <div class="form-area">
           <div class="form-row">
@@ -245,7 +248,47 @@
   </body>
   <script type="text/javascript" src="../../script/AHelper.js"></script>
   <script type="text/javascript" src="../../script/zepto.min.js"></script>
-  <script type="text/javascript" src="../../script/api.js"></script>
+<!--   <script type="text/javascript" src="../../script/api.js"></script> -->
   <script type="text/javascript" src="../../script/config.js"></script>
+  <script type="text/javascript" src="../../script/mcm/SHA1.js"></script>
+<script type="text/javascript" src="../../script/mcm/api.js"></script>
+<script type="text/javascript">
+  function funEachData( ret ){
+    if( typeof ret === 'string' ){
+      ret = JSON.parse( ret );
+    };
+    if( $api.getStorage( 'isLogin' )  ){
+      if( ret.rela_chan ){
+        var rela_chan = ret.rela_chan.split(',');
+        var rela_chans = [];
+        for( var x in rela_chan ){
+          rela_chans.push( rela_chan[x] );
+        }
+        var rela_chan = { where : { id: { inq : rela_chans } }  };
+        api.execScript({
+          name: 'root',
+          script: 'funChannerInt( \''+JSON.stringify( rela_chan )+'\' )'
+        });
+      }
+      $api.rmStorage('isLogin');
+    }
+    $api.dom('.user-wrap').innerHTML = '';
+    var img = ret.img || '../../image/default.png';
+    var ht = '<header class="title"></header>'+
+    '<li tapmode="hover" onclick="funOpenHeader( this )" data-name="personl-frm" class="flex-wrap user">'+
+    ' <div class="datas none">'+JSON.stringify( ret )+'</div>'+
+    ' <div class="pic" style="background-image:url('+ img  +');" ></div>'+
+    ' <div class="con flex-con">'+
+    '   <div class="arrows"></div>'+
+    '   <h6 class="row-nowrap" >'+ret.username+'</h6>'+
+    '   <p class="row-nowrap" >刚刚开始你的旅途</p>'+
+    ' </div>'+
+    '</li>'
+    $api.append( $api.dom('.user-wrap'), ht );
+    $api.addCls( $api.dom( '.login-wrap' ), 'none' );
+    $api.removeCls( $api.dom( '.user-wrap' ), 'none' );
+    api.parseTapmode(); 
+  };
+</script>
 
 </html>
