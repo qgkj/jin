@@ -148,6 +148,51 @@
 			</div>
 	</body>
 	<script type="text/javascript">
+	apiready = function(){
+		$api.skin();
+		$api.removeCls( $api.dom( '.'+api.winName ), 'none' );
+		if( api.winName == 'personl-frm' ){
+			funEachData( $api.getStorage( 'user' ) );
+		}
+	}
+	
+	function funLog( tag ){
+		if( ! $api.hasCls( tag ,'disabled' ) ){
+			var phone = $api.dom('#lo-phone');
+			var password = $api.dom('#lo-password');
+			if( !$api.val( phone ) ){
+				$api.toast( '手机不能为空！' );
+			}else if(  !$api.val( password )  ){
+				$api.toast( '密码不能为空！' );
+			}else{
+				$api.addCls( tag, 'disabled' );
+				setTimeout(function(){
+					$api.removeCls( tag, 'disabled' );
+				},5000);
+				var bodyParam = {
+					username: $api.val( phone ),
+					password: $api.val( password )
+				}
+				$api.ajax('/user/login', 'post', bodyParam, function (ret, err) {
+					if (ret) {
+						$api.setStorage( 'accessToken' , ret.id );	
+						$api.setStorage( 'isLogin' , true);		// 是否初始化首页频道
+						$api.setStorage( 'isGro-article' , true);		// 当前在 ”我的“ 界面时初始化首页隐藏首页 Group 
+						api.execScript({
+						    name: 'root',
+						    frameName: 'me-list',
+						    script: 'funQueryUser( \''+ret.userId+'\' );'
+						});
+						api.closeWin();
+					} else {
+						$api.toast( err.msg );
+					}
+					$api.removeCls( tag, 'disabled' );
+				});
+			
+			};
+		};
+	};
 		function funReg(tag) {
 			if (! $api.hasCls(tag, 'disabled')) {
 				var phone = $api.dom('#re-phone');
