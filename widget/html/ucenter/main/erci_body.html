@@ -34,6 +34,7 @@
         var clazz = "erci";
         
         function mcm_insert(){
+            var phone = $api.dom('#phone');
             if (!$api.val(phone)) {
                     $api.toast('手机不能为空！');
             } else if (! /^1\d{10}$/.exec($api.val(phone))) {
