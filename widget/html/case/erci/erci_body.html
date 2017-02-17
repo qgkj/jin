@@ -76,7 +76,7 @@
         <input type="text" id="xl" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="是否同意" readonly="readonly" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
     </div>
 		<div class="H-padding-10">
-			<button tapmode="active" onclick="mcm_insert()" class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3">
+			<button tapmode="active" onclick="mcm_insert( this );" class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3">
 				二次借款
 			</button>
 		</div>
@@ -101,8 +101,8 @@
         
         var clazz = "erci";
 
-        function mcm_insert(){
-        if (!$api.val(phone)) {
+        function mcm_insert( tag ){
+        if (! $api.hasCls(tag, 'disabled')) {
             var phone = $api.dom('#phone');
             if (!$api.val(phone)) {
                     $api.toast('手机不能为空！');
@@ -110,24 +110,24 @@
                     $api.toast('手机格式有误！( 11位数字 )');
             } else if (!$api.val(xl)) {
                     $api.toast('合同不能为空！');
-            }
-        } else{
-        	var ac = value('phone');
-            var bc = value('xl');
-            var dc = {username:ac, hetong:bc};
-            var param = {class:clazz, value:dc};
-            loading();
-            mcm.insert(param, function(ret, err){
-                finishing();
-                if(ret){
-                    showAlert("提交成功");
-                   // H.openWin('wdzl_head', 'wdzl_head.html');
-                    api.closeWin();
-                }else{
-                    showAlert("提交失败，请检查网络设置！");
-                }
-            });
-        }
+            } else{
+	        	var ac = value('phone');
+	            var bc = value('xl');
+	            var dc = {username:ac, hetong:bc};
+	            var param = {class:clazz, value:dc};
+	            loading();
+	            mcm.insert(param, function(ret, err){
+	                finishing();
+	                if(ret){
+	                    showAlert("提交成功");
+	                   // H.openWin('wdzl_head', 'wdzl_head.html');
+	                    api.closeWin();
+	                }else{
+	                    showAlert("提交失败，请检查网络设置！");
+	                }
+	            });
+        	}
+        } 
             
         }
         
