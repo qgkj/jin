@@ -124,21 +124,12 @@
             $api.rmStorage('isLogin');
         }
         $api.dom('.user-wrap').innerHTML = '';
-        var ht =  +ret.username+
+        var ht =  ret.username ;
 
         $api.append( $api.dom('.user-wrap'), ht );
-        $api.addCls( $api.dom( '.login-wrap' ), 'none' );
         $api.removeCls( $api.dom( '.user-wrap' ), 'none' );
         api.parseTapmode(); 
-    };
-    
-    function funOutLogin(){
-        $api.removeCls( $api.dom( '.login-wrap' ), 'none' );
-        $api.addCls( $api.dom( '.user-wrap' ), 'none' );
-        $api.rmStorage('user');
-        $api.rmStorage('accessToken');
-    };
-    
+    };    
         
 </script>
 </body>
