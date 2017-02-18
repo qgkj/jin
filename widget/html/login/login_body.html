@@ -281,7 +281,7 @@
             $api.setStorage( 'isGro-article' , true);   // 当前在 ”我的“ 界面时初始化首页隐藏首页 Group 
             api.execScript({
                 name: 'root',
-                frameName: 'me-list',
+                frameName: 'ucenter_body',
                 script: 'funQueryUser( \''+ret.userId+'\' );'
             });
             showAlert('登录成功！');//登录成功将返回用户基本信息

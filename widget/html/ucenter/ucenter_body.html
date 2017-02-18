@@ -50,6 +50,7 @@
         body.black .find li .con .arrows:before{ background-color: #707070; }
         body.black .find li .con p{ color: #626262; }
         body.black li.hover{ background-color:#333; }
+        .flex-wrap{ display: -webkit-box;   display: -webkit-flex;  display: flex; }
     </style>
 </head>
 <body>
@@ -58,19 +59,13 @@
             <div tapmode="" onclick="" class="picture H-position-relative  H-margin-horizontal-auto" style="width: 96px; height: 96px;"><img src="../../image/logo.png" class="H-display-block H-border-radius-circle H-margin-vertical-top-5" alt="" title="" style="width: 90px; height: 90px; border:3px solid rgba(255,255,255,0.3);" /></div>
             <strong class="H-display-block H-font-weight-normal H-font-weight-500 H-font-size-18 H-theme-font-color-white H-text-align-center H-margin-vertical-both-8">帮分期</strong>
             <!-- <div class="H-font-size-14 H-theme-font-color-white H-text-show-row-1 user-wrap">  </div> -->
-            <ul class="find none user-wrap">
-                <!--
-                    <header class="title"></header>
-                    <li class="flex-wrap user">
-                        <div class="pic" style="background-image:url(http://d.hiphotos.baidu.com/image/w%3D310/sign=e2ce6007b33533faf5b6952f98d3fdca/ac6eddc451da81cbc2cd6ac45066d01609243194.jpg);" ></div>
-                        <div class="con flex-con">
-                            <div class="arrows"></div>
-                            <h6 class="row-nowrap" >周杰伦</h6>
-                            <p class="row-nowrap" >22232人围观，1220条帖子</p>
-                        </div>
-                    </li>
-                 -->
-            </ul>
+            
+            <div class="flex-wrap">
+                <ul class="find none user-wrap">
+            
+                </ul>
+            </div>
+
         </div>
     </div>
     <div onclick="H.openWin('wdzl_head', 'main/wdzl_head.html');" class="H-text-list H-flexbox-horizontal  H-theme-background-color-white H-border-vertical-bottom-margin-left-10-after H-vertical-middle H-touch-active">
@@ -178,11 +173,22 @@
             $api.rmStorage('isLogin');
         }
         $api.dom('.user-wrap').innerHTML = '';
-        var ht =  '     <h6 class="row-nowrap" >'+ret.username+'</h6>'
+        var img = ret.img || '../../image/default.png';
+        var ht = '<header class="title"></header>'+
+        '<li tapmode="hover" onclick="funOpenHeader( this )" data-name="personl-frm" class="flex-wrap user">'+
+        '   <div class="datas none">'+JSON.stringify( ret )+'</div>'+
+        '   <div class="pic" style="background-image:url('+ img  +');" ></div>'+
+        '   <div class="con flex-con">'+
+        '       <div class="arrows"></div>'+
+        '       <h6 class="row-nowrap" >'+ret.username+'</h6>'+
+        '       <p class="row-nowrap" >刚刚开始你的旅途</p>'+
+        '   </div>'+
+        '</li>'
         $api.append( $api.dom('.user-wrap'), ht );
+        $api.addCls( $api.dom( '.login-wrap' ), 'none' );
         $api.removeCls( $api.dom( '.user-wrap' ), 'none' );
         api.parseTapmode(); 
-    };    
+    };
         
 </script>
 </body>
