@@ -153,11 +153,12 @@
 	<body class="winu-flex-box-vertical" id="bdy">
 		<div class="user-info">
 			<div class="img-container">
-				<img src="../../image/pic.jpg" />
+				<img src="../../image/logo.png" />
 				<span class="gender man"><i class="iconfont icon-nan"></i></span>
 			</div>
 			<div class="user-account">
-				<span>帮分期</span>
+				<!-- <span id="userp"></span> -->
+				<div id="userp"></div>
 				<span class="aui-ellipsis-1">专注学生的分期周转平台！</span>
 			</div>
 		</div>
@@ -197,7 +198,14 @@
 	</body>
 	<script type="text/javascript" src="../../script/AHelper.js"></script>
 	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+    <script type="text/javascript" src="../../script/mcm/common.js"></script>
+    <script type="text/javascript" src="../../script/mcm/SHA1.js"></script>
+    <script type="text/javascript" src="../../script/mcm/api.js"></script>
 	<script type="text/javascript">
+		// apiready = function(){
+  //           funQueryUser(key);
+  //       }
+        var key = $api.getStorage('key');
 		Zepto(function() {
 			$("#case-function-list").on("tap", "li", function() {
 				var funcName = $(this).attr("data-funcName");
@@ -211,6 +219,18 @@
 				}, 1000);
 			});
 		});
+		// function funQueryUser( key ){
+	 //        $api.ajax('/user/'+key, 'get', null, function (ret, err) {
+	 //            if (ret) {
+	 //                $api.setStorage('user', ret.username );
+	 //                var us = $api.getStorage('user');
+	 //                //alert(us);
+	 //                $api.dom('#userp').innerHTML = us;
+	 //            } else {
+	 //                $api.toast( err.msg );
+	 //            }
+	 //        });
+  //   	};
 		H.ready(function() {
 			H.$fixStatusBar(function(offset) {
 				$("body").css("width", api.winWidth - 80);

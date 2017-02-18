@@ -148,10 +148,19 @@
             var clazzNode = null;
             var model = null;
             apiready = function() {
+                var key = $api.getStorage('key');
+                $api.ajax('/user/'+key, 'get', null, function (ret, err) {
+                    if (ret) {
+                        $api.setStorage('user', ret.username );
+                    } else {
+                        $api.toast( err.msg );
+                    }
+                });
+
                 mcm = api.require('model');
                 model = api.require('model');
                 query = api.require('query');
-                clazzNode = "学信认证";
+                //clazzNode = us;
                 //在线编译正式版时，可以不用配置,APICloud会取当前应用的配置
                 mcm.config({
                     appId : "A6915918961135",
@@ -171,12 +180,16 @@
                 });
             }
 
+            
+         
+
             function comitImgData() {
+                var us = $api.getStorage('user');
                 capPicture(function(url) {
                     if (url) {
                         var dt = {
                             file : {
-                                name : clazzNode, //设置文件名
+                                name : us, //设置文件名
                                 url : url //文件本地地址
                             },
                             values : {//保留字段

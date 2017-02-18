@@ -19,7 +19,7 @@
         <input type="text" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" id="mima" placeholder="服务密码" />
     </div>
     <div class="H-padding-10">
-        <button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3" tapmode="active" onclick="mcm_insert()">提交保存</button>
+        <button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3" tapmode="active" onclick="mcm_insert(this)">提交保存</button>
     </div>
     <script src="../../../script/h/H.js" type="text/javascript"></script>
     <script type="text/javascript" src="../../../script/mcm/common.js"></script>
@@ -29,6 +29,14 @@
         var mcm = null;
         var query = null;
         apiready = function(){
+            var key = $api.getStorage('key');
+                $api.ajax('/user/'+key, 'get', null, function (ret, err) {
+                    if (ret) {
+                        $api.setStorage('user', ret.username );
+                    } else {
+                        $api.toast( err.msg );
+                    }
+                });
             mcm = api.require('model');
             query = api.require('query');
             //在线编译正式版时，可以不用配置,APICloud会取当前应用的配置
@@ -40,23 +48,39 @@
         }
         
         var clazz = "sjrz";
+
+
         
-        function mcm_insert(){
-            var ac = value('phone');
-            var bc = value('xl');
-            var cx = value('mima');
-            var dc = {phone:ac, yunying:bc, mima:cx};
-            var param = {class:clazz, value:dc};
-            loading();
-            mcm.insert(param, function(ret, err){
-                finishing();
-                if(ret){
-                    showAlert("提交成功");
-                    api.closeWin();
-                }else{
-                    showAlert("提交失败，请检查网络设置！");
+        function mcm_insert(tag){
+                if (! $api.hasCls(tag, 'disabled')) {
+                var phone = $api.dom('#phone');
+                var xl = $api.dom('#xl');
+                var mima = $api.dom('#mima');
+                if (!$api.val(phone)) {
+                    $api.toast('不能为空！');
+                } else if (!$api.val(xl)) {
+                    $api.toast('不能为空！');
+                } else if (!$api.val(mima)) {
+                    $api.toast('不能为空！');
+                } else {
+                    var us = $api.getStorage('user');
+                    var ac = value('phone');
+                    var bc = value('xl');
+                    var cx = value('mima');
+                    var dc = {phone:ac, yunying:bc, mima:cx, username:us};
+                    var param = {class:clazz, value:dc};
+                    loading();
+                    mcm.insert(param, function(ret, err){
+                        finishing();
+                        if(ret){
+                            showAlert("提交成功");
+                            api.closeWin();
+                        }else{
+                            showAlert("提交失败，请检查网络设置！");
+                        }
+                    });
                 }
-            });
+            }
         }
         
         function mcm_insertAll(){

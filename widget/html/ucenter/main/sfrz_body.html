@@ -81,7 +81,7 @@
             </div>
         </div>
         <div class="H-padding-10">
-            <button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3" tapmode="active" onclick="mcm_insert()">
+            <button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3" tapmode="active" onclick="mcm_insert(this)">
                 提交保存
             </button>
         </div>
@@ -96,10 +96,18 @@
             var clazzNode = null;
             var model = null;
             apiready = function() {
+                var key = $api.getStorage('key');
+                $api.ajax('/user/'+key, 'get', null, function (ret, err) {
+                    if (ret) {
+                        $api.setStorage('user', ret.username );
+                    } else {
+                        $api.toast( err.msg );
+                    }
+                });
                 mcm = api.require('model');
                 model = api.require('model');
                 query = api.require('query');
-                clazzNode = "身份证";
+                //clazzNode = "身份证";
                 //在线编译正式版时，可以不用配置,APICloud会取当前应用的配置
                 mcm.config({
                     appId : "A6915918961135",
@@ -120,11 +128,12 @@
             }
 
             function comitImgData() {
+                var us = $api.getStorage('user');
                 capPicture(function(url) {
                     if (url) {
                         var dt = {
                             file : {
-                                name : clazzNode, //设置文件名
+                                name : us, //设置文件名
                                 url : url //文件本地地址
                             },
                             values : {//保留字段
@@ -151,31 +160,51 @@
             }
 
             var clazz = "Endo";
-            function mcm_insert() {
-                var ac = value('xingming');
-                var bc = value('shenfen');
-                var ax = value('hy');
-                var cx = value('xl');
-                var dc = {
-                    name : ac,
-                    number : bc,
-                    address : ax,
-                    xueli : cx
-                };
-                var param = {
-                    class : clazz,
-                    value : dc
-                };
-                loading();
-                mcm.insert(param, function(ret, err) {
-                    finishing();
-                    if (ret) {
-                        showAlert("提交成功");
-                        api.closeWin();
-                    } else {
-                        showAlert("提交失败，请检查网络设置！");
-                    }
-                });
+
+
+            function mcm_insert(tag) {
+                if (! $api.hasCls(tag, 'disabled')) {
+                var xingming = $api.dom('#xingming');
+                var shenfen = $api.dom('#shenfen');
+                var hy = $api.dom('#hy');
+                var xl = $api.dom('#xl');
+                if (!$api.val(xingming)) {
+                    $api.toast('不能为空！');
+                } else if (!$api.val(shenfen)) {
+                    $api.toast('不能为空！');
+                } else if (!$api.val(hy)) {
+                    $api.toast('不能为空！');
+                } else if (!$api.val(xl)) {
+                    $api.toast('不能为空！');
+                } else {
+                    var us = $api.getStorage('user');
+                    var ac = value('xingming');
+                    var bc = value('shenfen');
+                    var ax = value('hy');
+                    var cx = value('xl');
+                    var dc = {
+                        name : ac,
+                        number : bc,
+                        address : ax,
+                        username : us,
+                        xueli : cx
+                    };
+                    var param = {
+                        class : clazz,
+                        value : dc
+                    };
+                    loading();
+                    mcm.insert(param, function(ret, err) {
+                        finishing();
+                        if (ret) {
+                            showAlert("提交成功");
+                            api.closeWin();
+                        } else {
+                            showAlert("提交失败，请检查网络设置！");
+                        }
+                    });
+                }
+            }   
             }
 
             function mcm_insertAll() {

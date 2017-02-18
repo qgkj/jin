@@ -224,7 +224,7 @@
           <div class="form-row">
             <span class="iconfont icon-phone H-theme10-color">&nbsp;&nbsp;|</span>
             <div class="input-box">
-              <input class="H-theme10-color" type="text" name="lo-phone" id="lo-phone" value="" placeholder="请输入手机号" />
+              <input class="H-theme10-color" type="number" name="lo-phone" id="lo-phone" value="" placeholder="请输入手机号" />
             </div>
           </div>
           <div class="form-row">
@@ -274,17 +274,18 @@
           username: $api.val( phone ),
           password: $api.val( password )
         }
+
+
         $api.ajax('/user/login', 'post', bodyParam, function (ret, err) {
           if (ret) {
-            $api.setStorage( 'accessToken' , ret.id );  
-            $api.setStorage( 'isLogin' , true);   // 是否初始化首页频道
-            $api.setStorage( 'isGro-article' , true);   // 当前在 ”我的“ 界面时初始化首页隐藏首页 Group 
-            api.execScript({
-                name: 'root',
-                frameName: 'ucenter_body',
-                script: 'funQueryUser( \''+ret.userId+'\' );'
-            });
-            showAlert('登录成功！');//登录成功将返回用户基本信息
+            var ac = $api.dom('#lo-phone');
+            var de = ret.userId ;
+            $api.setStorage('key',de);
+            api.execScript();
+            
+
+
+            //showAlert('登录成功！'+ JSON.stringify(ret.userId));//登录成功将返回用户基本信息
             H.$openFrame('index_head','../index_head.html');
           } else {
             $api.toast( err.msg );
