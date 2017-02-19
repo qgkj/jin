@@ -62,6 +62,36 @@
 			</button>
 		</div>
 		<script src="../../../script/H.js" type="text/javascript"></script>
-		<script type="text/javascript"></script>
+	    <script type="text/javascript" src="../../../script/mcm/common.js"></script>
+	    <script type="text/javascript" src="../../../script/mcm/SHA1.js"></script>
+	    <script type="text/javascript" src="../../../script/mcm/api.js"></script>
+		<script type="text/javascript">
+		apiready = function(){
+			var wxPay = api.require('wxPay');
+			wxPay.getOrderId({
+			    info: ''
+			}, function(ret, err) {
+				if (ret) {
+					alert(JSON.stringify(ret));
+				// 	wxPay.payOrder({
+				//     apiKey: '',
+				//     orderId: '',
+				//     mchId: '',
+				//     nonceStr: '',
+				//     timeStamp: '',
+				//     package: '',
+				//     sign: ''
+				// }, function(ret, err) {
+				//     if (ret.status) {
+				//         //支付成功
+				//     } else {
+				//         alert(err.code);
+				//     }
+				// });
+				}
+			});
+		}
+			
+		</script>
 	</body>
 </html>
