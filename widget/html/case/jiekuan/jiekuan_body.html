@@ -116,14 +116,25 @@
           mcm.insert(param, function(ret, err){
               finishing();
               if(ret){
-                  showAlert("提交成功,请完善资料");
-                  jindua();
-                  api.closeWin();
+              	jindua();
+              	api.alert({
+              	    title: 'success',
+              	    msg: '提交成功,请完善资料',
+              	}, function(ret, err){
+              	    if( ret ){
+              	         H.$openFrame('wdzl_head', '../../ucenter/main/wdzl_head.html');
+              	    }else{
+              	         alert( JSON.stringify( err ) );
+              	    }
+              	});
+                  //showAlert("提交成功,请完善资料");
+                  
+                  //api.closeWin();
                   
               }else{
                   showAlert("提交失败，请检查网络设置！");
               }
-              H.$openFrame('wdzl_head', '../../ucenter/main/wdzl_head.html');
+              //H.$openFrame('wdzl_head', '../../ucenter/main/wdzl_head.html');
               //H.openWin('wdzl_head', '../../ucenter/main/wdzl_head.html');
           });
         }
