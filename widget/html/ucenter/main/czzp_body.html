@@ -128,46 +128,33 @@
             //更新进度
             function updatePercent(ret, err) {
                 if (0 == ret.state) {
-                    //loading('进度：' + ret.progress);
+                    loading('进度：' + ret.progress);
                     progress.step(ret.progress);
                 } else {
                     //finishing();
                     showAlert('上传成功');
+                    jindua();
                     api.closeWin();
                 }
             }
 
-            var clazz = "Endo";
-            function mcm_insert() {
-                var ac = value('xingming');
-                var bc = value('shenfen');
-                var ax = value('hy');
-                var cx = value('xl');
-                var dc = {
-                    name : ac,
-                    number : bc,
-                    address : ax,
-                    xueli : cx
-                };
-                var param = {
-                    class : clazz,
-                    value : dc
-                };
-                loading();
-                mcm.insert(param, function(ret, err) {
-                    finishing();
-                    if (ret) {
-                        showAlert("提交成功");
-                        api.closeWin();
-                    } else {
-                        showAlert("提交失败，请检查网络设置！");
-                    }
-                });
-            }
 
-            function mcm_insertAll() {
-                ;
-            }
+        function jindua(){
+            var jin = "jindu";
+          var us = $api.getStorage('user');
+          var bc = '已提交持证信息';
+          var cx = {username:us, jindu:bc}
+          var param = {class:jin, value:cx};
+          loading();
+          mcm.insert(param, function(ret, err){
+              finishing();
+              if(ret){
+                 // showAlert("提交成功,请完善资料");
+              }else{
+                //  showAlert("提交失败，请检查网络设置！");
+              }
+          });           
+        }
         </script>
         <script>
             function Progress() {

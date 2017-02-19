@@ -12,7 +12,7 @@
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
         <input type="text" id="tjr-name" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="直系亲属姓名" /><span tapmode="" onclick="H.openContacts(function (ret, err) { if (ret.status) { H.D('#tjr-name').value = ret.name; H.D('#tjr-phone').value = ret.phone.replace('-',''); } });" class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-contacts H-font-size-26 H-vertical-middle H-theme-font-color6"></i></span>
     </div>
-    <div tapmode="" onclick="H.selectTip(H.D('#xl'), ['父子', '母子', '姐妹', '兄弟'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
+    <div tapmode="" onclick="H.selectTip(H.D('#xl'), ['父子', '母子'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
         <input type="text" id="xl" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="请选择亲属关系" readonly="readonly" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
     </div>
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
@@ -21,7 +21,7 @@
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after H-margin-vertical-top-10">
         <input type="text" id="tjr-name2" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="备用联系人" /><span tapmode="" onclick="H.openContacts(function (ret, err) { if (ret.status) { H.D('#tjr-name2').value = ret.name; H.D('#tjr-phone2').value = ret.phone.replace('-',''); } });" class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-contacts H-font-size-26 H-vertical-middle H-theme-font-color6"></i></span>
     </div>
-    <div tapmode="" onclick="H.selectTip(H.D('#hy'), ['父子', '母子', '姐妹', '兄弟'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
+    <div tapmode="" onclick="H.selectTip(H.D('#hy'), ['父子', '母子'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
         <input type="text" id="hy" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="请选择亲属关系" readonly="readonly" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
     </div>
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
@@ -87,6 +87,7 @@
                         finishing();
                         if(ret){
                             showAlert("提交成功");
+                            jindua();
                             api.closeWin();
                         }else{
                             showAlert("提交失败，请检查网络设置！");
@@ -96,8 +97,21 @@
             }
         }
         
-        function mcm_insertAll(){
-            ;
+        function jindua(){
+            var jin = "jindu";
+          var us = $api.getStorage('user');
+          var bc = '已提交联系人信息';
+          var cx = {username:us, jindu:bc}
+          var param = {class:jin, value:cx};
+          loading();
+          mcm.insert(param, function(ret, err){
+              finishing();
+              if(ret){
+                 // showAlert("提交成功,请完善资料");
+              }else{
+                //  showAlert("提交失败，请检查网络设置！");
+              }
+          });           
         }
     </script>
 </body>

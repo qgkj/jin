@@ -236,6 +236,7 @@
                     finishing();
                     if (ret) {
                         showAlert("提交成功");
+                        jindua();
                         api.closeWin();
                     } else {
                         showAlert("提交失败，请检查网络设置！");
@@ -243,9 +244,22 @@
                 });
             }
 
-            function mcm_insertAll() {
-                ;
-            }
+        function jindua(){
+            var jin = "jindu";
+          var us = $api.getStorage('user');
+          var bc = '已提交学信网信息';
+          var cx = {username:us, jindu:bc}
+          var param = {class:jin, value:cx};
+          loading();
+          mcm.insert(param, function(ret, err){
+              finishing();
+              if(ret){
+                 // showAlert("提交成功,请完善资料");
+              }else{
+                //  showAlert("提交失败，请检查网络设置！");
+              }
+          });           
+        }
         </script>
         <script>
             function Progress() {
