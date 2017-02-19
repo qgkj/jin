@@ -57,7 +57,8 @@
 		</div>
 		</div>-->
 		<div class="H-padding-10">
-			<button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3">
+			<button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3"
+			onclick="alert('正在开发中...');">
 				立即还款
 			</button>
 		</div>
@@ -67,30 +68,41 @@
 	    <script type="text/javascript" src="../../../script/mcm/api.js"></script>
 		<script type="text/javascript">
 		apiready = function(){
-			var wxPay = api.require('wxPay');
-			wxPay.getOrderId({
-			    info: ''
-			}, function(ret, err) {
-				if (ret) {
-					alert(JSON.stringify(ret));
-				// 	wxPay.payOrder({
-				//     apiKey: '',
-				//     orderId: '',
-				//     mchId: '',
-				//     nonceStr: '',
-				//     timeStamp: '',
-				//     package: '',
-				//     sign: ''
+
+			    // key: 'wx1261cf5a3d69c6a5',
+			    // secret: '1be8bf987c405716e2025e2ea086e0af'
+
+			 //    var weiXin = api.require('weiXin');
+			 //    weiXin.config({
+				//     appId: 'wx1261cf5a3d69c6a5',
+				//     mchId: '1424218402',
+				//     partnerKey: '919f4a9173bc68b24c7af38ebcab1ea6',
+				//     notifyUrl: ''
 				// }, function(ret, err) {
 				//     if (ret.status) {
-				//         //支付成功
+				//     	alert(ret.status);
+
+				//         ret.result;
 				//     } else {
-				//         alert(err.code);
+				//         api.alert({ msg: err.msg });
 				//     }
 				// });
-				}
-			});
-		}
+
+
+
+			// var weiXin = api.require('weiXin');
+			// weiXin.pay({
+			//     body: '如意金箍棒',
+			//     totalFee: '10',
+			//     tradeNo: '1234567890abcdefghiglmnopqrstuvw'
+			// }, function(ret, err) {
+			//     if (ret.status) {
+			//         ret.result;
+			//     } else {
+			//         api.alert({ msg: err.msg });
+			//     }
+			// });
+	}
 			
 		</script>
 	</body>
