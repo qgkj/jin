@@ -114,6 +114,7 @@
         $api.ajax('/user/'+key, 'get', null, function (ret, err) {
             if (ret) {
                 $api.setStorage('user', "手机号："+ret.username );
+                $api.setStorage('use', ret.username );
                 var us = $api.getStorage('user');
                 //alert(us);
                 $api.dom('#userp').innerHTML = us;
