@@ -32,10 +32,18 @@
 			</div>
 			<div class="H-border-vertical-top-after H-flexbox-horizontal H-padding-vertical-both-10 H-border-vertical-both-after">
 				<div class="H-flex-item H-font-size-14 H-text-align-center">
+					借款日期
+				</div>
+				<div class="H-flex-item H-font-size-16 H-text-align-center" id="riqi">
+					****年**月**日
+				</div>
+			</div>
+			<div class="H-border-vertical-top-after H-flexbox-horizontal H-padding-vertical-both-10 H-border-vertical-both-after">
+				<div class="H-flex-item H-font-size-14 H-text-align-center">
 					到期还款日
 				</div>
-				<div class="H-flex-item H-font-size-16 H-text-align-center">
-					****年**月**日
+				<div class="H-flex-item H-font-size-16 H-text-align-center" id="riqi">
+					请在借款日后15天内还清
 				</div>
 			</div>
 			<div class="H-border-vertical-top-after H-flexbox-horizontal H-padding-vertical-both-10 H-border-vertical-both-after">
@@ -67,42 +75,179 @@
 	    <script type="text/javascript" src="../../../script/mcm/SHA1.js"></script>
 	    <script type="text/javascript" src="../../../script/mcm/api.js"></script>
 		<script type="text/javascript">
+			/*--------------------------------------格灵斯时间装换开始----------------*/
+			Date.prototype.Format = function (fmt){
+			   var o = {                                   
+			        "M+": this.getMonth() + 1,//月份   
+			        "d+": this.getDate(),//日   
+			        "h+": this.getHours(),//小时   
+			        "m+": this.getMinutes(),//分   
+			        "s+": this.getSeconds(),//秒   
+			        "q+": Math.floor((this.getMonth() + 3) / 3),//季度   
+			        "S": this.getMilliseconds()//毫秒   
+			   };
+			        if (/(y+)/.test(fmt))
+			                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+			        for (var k in o)
+			                if (new RegExp("(" + k + ")").test(fmt))
+			                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+			        return fmt;
+			}
+			function date_gls(date,type){
+			   var _time = new Date(date);
+			   return _time.Format(type);
+			}
+			/*--------------------------------------格灵斯时间装换结束----------------*/
+			function  H_font(content){
+			//ios高度
+			var Height_msg = '17px';
+			if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){var Height_msg = '37px';}
+			/* --------------------时间段处理开始  -----------------*/
+			  var now =getLocalTime();
+			  var date = date_gls(content.createdAt,'MM-dd hh:mm');
+			   if(date.substr(0,5) == now.substr(5,5)){
+			    var date = '今日';
+			        var  _time = new Date().Format("hh:mm");
+			     if(date_gls(content.createdAt,'hh:mm') == _time){
+			     var date = '现在';
+			     }
+			   }
+			}
+
+		// var formatDateTime = function (date) {  
+		//             var y = date.getFullYear();  
+		//             var m = date.getMonth() + 1;  
+		//             m = m < 10 ? ('0' + m) : m;  
+		//             var d = date.getDate();  
+		//             d = d < 10 ? ('0' + d) : d;  
+		//             var h = date.getHours();  
+		//             h = h < 10 ? ('0' + h) : h;  
+		//             var minute = date.getMinutes();  
+		//             minute = minute < 10 ? ('0' + minute) : minute;  
+		//             return y + '/' + m + '/' + d+' '+h+':'+minute;  
+		//         }; 
+
+		var mcm = null;
 		apiready = function(){
-
-			    // key: 'wx1261cf5a3d69c6a5',
-			    // secret: '1be8bf987c405716e2025e2ea086e0af'
-
-			 //    var weiXin = api.require('weiXin');
-			 //    weiXin.config({
-				//     appId: 'wx1261cf5a3d69c6a5',
-				//     mchId: '1424218402',
-				//     partnerKey: '919f4a9173bc68b24c7af38ebcab1ea6',
-				//     notifyUrl: ''
-				// }, function(ret, err) {
-				//     if (ret.status) {
-				//     	alert(ret.status);
-
-				//         ret.result;
-				//     } else {
-				//         api.alert({ msg: err.msg });
-				//     }
-				// });
+                   funQueryUser(key);
+                mcm = api.require('model');
+                query = api.require('query');
+                //在线编译正式版时，可以不用配置,APICloud会取当前应用的配置
+                mcm.config({
+                    appId : "A6915918961135",
+                    appKey : "02E0067E-57AF-1EBB-12AF-05666A9278D4",
+                    url : 'https://d.apicloud.com'
+                });
 
 
-
-			// var weiXin = api.require('weiXin');
-			// weiXin.pay({
-			//     body: '如意金箍棒',
-			//     totalFee: '10',
-			//     tradeNo: '1234567890abcdefghiglmnopqrstuvw'
-			// }, function(ret, err) {
-			//     if (ret.status) {
-			//         ret.result;
-			//     } else {
-			//         api.alert({ msg: err.msg });
-			//     }
-			// });
 	}
+	       var key = $api.getStorage('key');
+
+       function funQueryUser( key ){
+        $api.ajax('/user/'+key, 'get', null, function (ret, err) {
+            if (ret) {
+                $api.setStorage('use', ret.username );
+                var us = $api.getStorage('use');
+                //alert(us);
+               // $api.dom('#userp').innerHTML = us;
+               // bianjin();
+               lijin();
+            } else {
+                $api.toast( err.msg );
+            }
+        });
+    };
+
+
+						function changeDate(timestr) {
+						        //英文显示的时间字符串 带时区等信息
+						        var year = timestr.getFullYear();
+						        var month = timestr.getMonth() + 1;
+						        //Date 对象返回月份 (0 ~ 11),显示时加1
+						        var date = timestr.getDate();
+						        var hours = timestr.getHours();
+						        if (hours < 10) {
+						                hours = "0" + hours;
+						        }
+						        var minute = timestr.getMinutes();
+						        if (minute < 10) {
+						                minute = "0" + minute;
+						        }
+						        var second = timestr.getSeconds();
+						        if (second < 10) {
+						                second = "0" + second;
+						        }
+						        var fullstr = year + "年" + month + "月" + date + "日";
+						        return fullstr;
+						}
+
+
+    var usa = $api.getStorage('use');
+
+    function lijin(){
+            // api.showProgress({
+            //     title : '加载中...',
+            //     modal : false
+            // });
+        var query = api.require("query");
+        //var usa = $api.getStorage('user');
+        //alert(usa);
+        query.createQuery(function(ret, err) {
+            if (ret && ret.qid) {
+                var queryId = ret.qid;
+
+                query.whereEqual({
+                    qid: queryId,
+                    column: "username",
+                    value: usa
+                });
+
+                query.limit({
+                    qid:queryId,
+                    value:"20"
+                });
+
+                var model = api.require("model");
+
+                model.findAll({
+                    class: "jiekuan",
+                    qid: queryId
+                }, function(ret, err){
+                    if (ret) {
+                        $api.setStorage('jind', JSON.stringify(ret[0].updatedAt) );
+                        //alert(ret.createdAt);
+                        var ws = $api.getStorage('jind');
+                        //alert(ws);
+                            //var time = new Date(ws);
+                            //alert(time);
+						    // var timeString = time.format("yyyy-MM-dd");
+						    //var timeString = date_gls(ws,yyyy/MM/dd);
+						    //var timeString = new Date(Date.parse(JSON.stringify(ret[0].updatedAt))).Format("yyyy-MM-dd");
+						    //alert(timeString);
+						    //var timeString = new Date(Date.parse(JSON.stringify(ret[0].updatedAt))).Format("yyyy-MM-dd");
+                        //alert("ret: " + JSON.stringify(ret[0]) );
+                        // var timestr=new Date(ws);
+                        // var times = changeDate(ws);
+                        // alert(times);
+
+                        $api.dom('#riqi').innerHTML = ws;
+
+                      //  var obj = $api.byId('txtNewsList');
+      //                   for (var i = 0, len = ret.length; i < len; i++) {
+      //                       var thisItem = ret[i];
+      //                       var nType = thisItem.type;
+      //                       //alert(JSON.stringify(ret[i].jindu + ret[i].createdAt));
+      //                       // $api.dom('#wn').innerHTML = ws;
+						// }
+
+                    } else{
+                        alert("ret: " + JSON.stringify(err) );
+                    }
+                    
+                });
+            }
+        });        
+    }
 			
 		</script>
 	</body>
