@@ -76,43 +76,43 @@
 	    <script type="text/javascript" src="../../../script/mcm/api.js"></script>
 		<script type="text/javascript">
 			/*--------------------------------------格灵斯时间装换开始----------------*/
-			Date.prototype.Format = function (fmt){
-			   var o = {                                   
-			        "M+": this.getMonth() + 1,//月份   
-			        "d+": this.getDate(),//日   
-			        "h+": this.getHours(),//小时   
-			        "m+": this.getMinutes(),//分   
-			        "s+": this.getSeconds(),//秒   
-			        "q+": Math.floor((this.getMonth() + 3) / 3),//季度   
-			        "S": this.getMilliseconds()//毫秒   
-			   };
-			        if (/(y+)/.test(fmt))
-			                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-			        for (var k in o)
-			                if (new RegExp("(" + k + ")").test(fmt))
-			                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-			        return fmt;
-			}
-			function date_gls(date,type){
-			   var _time = new Date(date);
-			   return _time.Format(type);
-			}
-			/*--------------------------------------格灵斯时间装换结束----------------*/
-			function  H_font(content){
-			//ios高度
-			var Height_msg = '17px';
-			if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){var Height_msg = '37px';}
-			/* --------------------时间段处理开始  -----------------*/
-			  var now =getLocalTime();
-			  var date = date_gls(content.createdAt,'MM-dd hh:mm');
-			   if(date.substr(0,5) == now.substr(5,5)){
-			    var date = '今日';
-			        var  _time = new Date().Format("hh:mm");
-			     if(date_gls(content.createdAt,'hh:mm') == _time){
-			     var date = '现在';
-			     }
-			   }
-			}
+			// Date.prototype.Format = function (fmt){
+			//    var o = {                                   
+			//         "M+": this.getMonth() + 1,//月份   
+			//         "d+": this.getDate(),//日   
+			//         "h+": this.getHours(),//小时   
+			//         "m+": this.getMinutes(),//分   
+			//         "s+": this.getSeconds(),//秒   
+			//         "q+": Math.floor((this.getMonth() + 3) / 3),//季度   
+			//         "S": this.getMilliseconds()//毫秒   
+			//    };
+			//         if (/(y+)/.test(fmt))
+			//                 fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+			//         for (var k in o)
+			//                 if (new RegExp("(" + k + ")").test(fmt))
+			//                 fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+			//         return fmt;
+			// }
+			// function date_gls(date,type){
+			//    var _time = new Date(date);
+			//    return _time.Format(type);
+			// }
+			// /*--------------------------------------格灵斯时间装换结束----------------*/
+			// function  H_font(content){
+			// //ios高度
+			// var Height_msg = '17px';
+			// if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){var Height_msg = '37px';}
+			// /* --------------------时间段处理开始  -----------------*/
+			//   var now =getLocalTime();
+			//   var date = date_gls(content.createdAt,'MM-dd hh:mm');
+			//    if(date.substr(0,5) == now.substr(5,5)){
+			//     var date = '今日';
+			//         var  _time = new Date().Format("hh:mm");
+			//      if(date_gls(content.createdAt,'hh:mm') == _time){
+			//      var date = '现在';
+			//      }
+			//    }
+			// }
 
 		// var formatDateTime = function (date) {  
 		//             var y = date.getFullYear();  
@@ -159,27 +159,27 @@
     };
 
 
-						function changeDate(timestr) {
-						        //英文显示的时间字符串 带时区等信息
-						        var year = timestr.getFullYear();
-						        var month = timestr.getMonth() + 1;
-						        //Date 对象返回月份 (0 ~ 11),显示时加1
-						        var date = timestr.getDate();
-						        var hours = timestr.getHours();
-						        if (hours < 10) {
-						                hours = "0" + hours;
-						        }
-						        var minute = timestr.getMinutes();
-						        if (minute < 10) {
-						                minute = "0" + minute;
-						        }
-						        var second = timestr.getSeconds();
-						        if (second < 10) {
-						                second = "0" + second;
-						        }
-						        var fullstr = year + "年" + month + "月" + date + "日";
-						        return fullstr;
-						}
+						// function changeDate(timestr) {
+						//         //英文显示的时间字符串 带时区等信息
+						//         var year = timestr.getFullYear();
+						//         var month = timestr.getMonth() + 1;
+						//         //Date 对象返回月份 (0 ~ 11),显示时加1
+						//         var date = timestr.getDate();
+						//         var hours = timestr.getHours();
+						//         if (hours < 10) {
+						//                 hours = "0" + hours;
+						//         }
+						//         var minute = timestr.getMinutes();
+						//         if (minute < 10) {
+						//                 minute = "0" + minute;
+						//         }
+						//         var second = timestr.getSeconds();
+						//         if (second < 10) {
+						//                 second = "0" + second;
+						//         }
+						//         var fullstr = year + "年" + month + "月" + date + "日";
+						//         return fullstr;
+						// }
 
 
     var usa = $api.getStorage('use');
