@@ -253,10 +253,7 @@
   <script type="text/javascript">
     apiready = function(){
     $api.skin();
-    $api.removeCls( $api.dom( '.'+api.winName ), 'none' );
-    if( api.winName == 'personl-frm' ){
-      funEachData( $api.getStorage( 'user' ) );
-    }
+    checklogin();
   }
   
   function funLog( tag ){
@@ -285,7 +282,7 @@
             $api.setStorage('key',de);
             api.execScript();
             
-
+            api.setPrefs({    key: de,    value: '1'});
 
             //showAlert('登录成功！'+ JSON.stringify(ret));//登录成功将返回用户基本信息
             H.$openFrame('index_head','../index_head.html');
@@ -298,5 +295,16 @@
       };
     };
   };
+
+  function checklogin(){
+     //获取登录时候存储的值
+                var UserID=api.getPrefs({sync: true, key: 'UserID' });
+                if(UserID<=0){
+                     //这里↓跳转登录页面
+                     H.$openFrame('index_head','../index_head.html');
+                }
+                //这里↓写登录后需要跳转的页面
+               // H.$openFrame('index_head','../index_head.html');
+  }
   </script>
 </html>

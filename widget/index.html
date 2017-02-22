@@ -12,44 +12,7 @@
 	<body></body>
 	<script type="text/javascript" src="./script/AHelper.js"></script>
 	<script type="text/javascript" src="./script/zepto.min.js"></script>
-	<script type="text/javascript" src="./script/mcm/api.js"></script>
 	<script type="text/javascript">
-	                apiready = function() {
-                        setTimeout('api.removeLaunchView();', 3000);
-                        var key = $api.getStorage('key');
-                        //判断缓存中是否存在，判断是否登录的状态
-                        if ( typeof (key) != "undefined") {
-                                api.openWin({
-                                        name : 'root',
-                                        url : './html/index_head.html',
-                                        bounces : false,
-                                        opaque : false,
-                                        showProgress : true,
-                                        vScrollBarEnabled : false,
-                                        hScrollBarEnabled : false,
-                                        slidBackEnabled : false,
-                                        delay : 300,
-                                        animation : {
-                                                duration : 400
-                                        }
-                                });
-                        } else {
-                                api.openWin({
-                                        name : 'login',
-                                        url : './html/login/login_head.html',
-                                        bounces : false,
-                                        opaque : false,
-                                        showProgress : true,
-                                        vScrollBarEnabled : false,
-                                        hScrollBarEnabled : false,
-                                        slidBackEnabled : false,
-                                        delay : 300,
-                                        animation : {
-                                                duration : 400
-                                        }
-                                });
-                        }
-                };
 		H.ready(function() {
 			// 移除启动页
 			setTimeout(function() {
