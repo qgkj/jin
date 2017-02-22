@@ -10,23 +10,45 @@
 </head>
 <body>
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
-        <input type="text" id="tjr-name" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="直系亲属姓名" /><span tapmode="" onclick="H.openContacts(function (ret, err) { if (ret.status) { H.D('#tjr-name').value = ret.name; H.D('#tjr-phone').value = ret.phone.replace('-',''); } });" class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-contacts H-font-size-26 H-vertical-middle H-theme-font-color6"></i></span>
+        <input type="text" id="name" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="父亲姓名" /><span tapmode="" onclick="H.openContacts(function (ret, err) { if (ret.status) { H.D('#name').value = ret.name; H.D('#phone').value = ret.phone.replace('-',''); } });" class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-contacts H-font-size-26 H-vertical-middle H-theme-font-color6"></i></span>
     </div>
-    <div tapmode="" onclick="H.selectTip(H.D('#xl'), ['父子', '母子'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
-        <input type="text" id="xl" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="请选择亲属关系" readonly="readonly" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
+    <div tapmode="" onclick="H.selectTip(H.D('#xl'), ['父子'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
+        <input type="text" id="xl" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" value="父子" placeholder="请选择亲属关系" readonly="readonly" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
     </div>
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
-        <input type="text" id="tjr-phone" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="联系电话" />
+        <input type="text" id="phone" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="父亲电话" />
     </div>
+
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after H-margin-vertical-top-10">
-        <input type="text" id="tjr-name2" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="备用联系人" /><span tapmode="" onclick="H.openContacts(function (ret, err) { if (ret.status) { H.D('#tjr-name2').value = ret.name; H.D('#tjr-phone2').value = ret.phone.replace('-',''); } });" class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-contacts H-font-size-26 H-vertical-middle H-theme-font-color6"></i></span>
+        <input type="text" id="name2" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="母亲姓名" /><span tapmode="" onclick="H.openContacts(function (ret, err) { if (ret.status) { H.D('#name2').value = ret.name; H.D('#phone2').value = ret.phone.replace('-',''); } });" class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-contacts H-font-size-26 H-vertical-middle H-theme-font-color6"></i></span>
     </div>
-    <div tapmode="" onclick="H.selectTip(H.D('#hy'), ['父子', '母子'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
-        <input type="text" id="hy" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="请选择亲属关系" readonly="readonly" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
+    <div tapmode="" onclick="H.selectTip(H.D('#hy'), ['母子'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
+        <input type="text" id="hy" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" value="母子" placeholder="请选择亲属关系" readonly="readonly" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
     </div>
     <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
-        <input type="text" id="tjr-phone2" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="联系电话" />
+        <input type="text" id="phone2" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="母亲电话" />
     </div>
+
+    <div class="H-flexbox-horizontal H-border-vertical-bottom-after H-margin-vertical-top-10">
+        <input type="text" id="name3" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="同学姓名" /><span tapmode="" onclick="H.openContacts(function (ret, err) { if (ret.status) { H.D('#name3').value = ret.name; H.D('#phone3').value = ret.phone.replace('-',''); } });" class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-contacts H-font-size-26 H-vertical-middle H-theme-font-color6"></i></span>
+    </div>
+    <div tapmode="" onclick="H.selectTip(H.D('#hq'), ['同学'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
+        <input type="text" id="hy" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" value="同学" placeholder="请选择亲属关系" readonly="readonly" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
+    </div>
+    <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
+        <input type="text" id="phone3" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="同学电话" />
+    </div>
+
+    <div class="H-flexbox-horizontal H-border-vertical-bottom-after H-margin-vertical-top-10">
+        <input type="text" id="name4" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="辅导员姓名" /><span tapmode="" onclick="H.openContacts(function (ret, err) { if (ret.status) { H.D('#name4').value = ret.name; H.D('#phone4').value = ret.phone.replace('-',''); } });" class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-contacts H-font-size-26 H-vertical-middle H-theme-font-color6"></i></span>
+    </div>
+    <div tapmode="" onclick="H.selectTip(H.D('#hw'), ['辅导员'])" class="H-flexbox-horizontal H-border-vertical-bottom-after">
+        <input type="text" id="hy" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" value="辅导员" placeholder="请选择亲属关系" readonly="readonly" /><span class="H-icon H-vertical-middle H-padding-horizontal-right-10 H-theme-background-color-white"><i class="H-iconfont H-icon-arrow-down H-font-size-16 H-vertical-middle H-theme-font-color-999"></i></span>
+    </div>
+    <div class="H-flexbox-horizontal H-border-vertical-bottom-after">
+        <input type="text" id="phone4" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="辅导员电话" />
+    </div>
+
     <div class="H-padding-10">
         <button class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-12 H-padding-horizontal-both-20 H-theme-background-color6 H-theme-font-color-white H-theme-border-color6 H-theme-border-color6-click H-theme-background-color6-click H-theme-font-color6-click H-border-radius-3" tapmode="active" onclick="mcm_insert(this)">提交保存</button>
     </div>
@@ -60,27 +82,59 @@
 
         function mcm_insert(tag){
                 if (! $api.hasCls(tag, 'disabled')) {
-                var tjrname = $api.dom('#tjr-name');
-                var tjrphone = $api.dom('#tjr-phone');
-                var tjrname2 = $api.dom('#tjr-name2');
-                var tjrphone2 = $api.dom('#tjr-phone2');
-                if (!$api.val(tjrname)) {
+                var name = $api.dom('#name');
+                var phone = $api.dom('#phone');
+                var name2 = $api.dom('#name2');
+                var phone2 = $api.dom('#phone2');
+                var name3 = $api.dom('#name3');
+                var phone3 = $api.dom('#phone3');
+                var name4 = $api.dom('#name4');
+                var phone4 = $api.dom('#phone4');
+                if (!$api.val(name)) {
                     $api.toast('不能为空！');
-                } else if (!$api.val(tjrphone)) {
+                } else if (!$api.val(phone)) {
                     $api.toast('不能为空！');
-                } else if (!$api.val(tjrname2)) {
+                } else if (!$api.val(name2)) {
                     $api.toast('不能为空！');
-                } else if (!$api.val(tjrphone2)) {
+                } else if (!$api.val(phone2)) {
+                    $api.toast('不能为空！');
+                }  else if (!$api.val(name3)) {
+                    $api.toast('不能为空！');
+                } else if (!$api.val(phone3)) {
+                    $api.toast('不能为空！');
+                } else if (!$api.val(name4)) {
+                    $api.toast('不能为空！');
+                } else if (!$api.val(phone4)) {
                     $api.toast('不能为空！');
                 } else {
                     var us = $api.getStorage('user');
-                    var ac = value('tjr-name');
-                    var bc = value('xl');
-                    var ax = value('tjr-phone');
-                    var cx = value('tjr-name2');
-                    var dx = value('hy');
-                    var wx = value('tjr-phone2');
-                    var dc = {qinshu1:ac, guanxi1:bc, phone1:ax, qinshu2:cx, guanxi2:dx, phone2:wx, username:us};
+                    var ac = value('name');
+                    var bc = '父亲';
+                    var ax = value('phone');
+                    var cx = value('name2');
+                    var dx = '母亲';
+                    var wx = value('phone2');
+                    var qq = value('name3');
+                    var ww = '同学';
+                    var ee = value('phone3');
+                    var rr = value('name4');
+                    var tt = '辅导员';
+                    var yy = value('phone4');                                        
+                    var dc = {
+                        qinshu1:ac, 
+                        phone1:ax, 
+                        qinshu2:cx, 
+                        phone2:wx, 
+                        username:us,
+                        tphone:ee, 
+                        tname:qq, 
+                        fphone:yy, 
+                        fname:rr,
+                        guanxi1:bc,
+                        guanxi2:dx,
+                        tguanxi:ww,
+                        fguanxi:tt
+                    };
                     var param = {class:clazz, value:dc};
                     loading();
                     mcm.insert(param, function(ret, err){
