@@ -245,7 +245,29 @@
 	<script type="text/javascript" src="../script/AHelper.js"></script>
 	<script type="text/javascript" src="../script/zepto.min.js"></script>
 	<script type="text/javascript" src="../script/iScroll5/iscroll.js"></script>
+	<script type="text/javascript" src="../script/mcm/SHA1.js"></script>
+    <script type="text/javascript" src="../script/mcm/api.js"></script>
 	<script type="text/javascript">
+
+        apiready = function(){
+        $api.skin();
+        funQueryUser(key);
+      }
+       var key = $api.getStorage('key');
+
+       function funQueryUser( key ){
+        $api.ajax('/user/'+key, 'get', null, function (ret, err) {
+            if (ret) {
+                $api.setStorage('user', ret.username );
+                //var us = $api.getStorage('user');
+                //alert(us);
+               // $api.dom('#userp').innerHTML = us;
+            } else {
+                $api.toast( err.msg );
+            }
+        });
+    };
+
 		var myScroll = null;
 		// 当前显示的frame名称
 		var currentFrameName = "case";

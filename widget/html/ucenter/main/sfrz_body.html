@@ -70,14 +70,16 @@
             <input type="text" id="zhuzhi" class="H-textbox H-vertical-align-middle H-vertical-middle H-font-size-16 H-flex-item H-box-sizing-border-box H-border-none H-outline-none H-padding-12" placeholder="请填写详细的家庭住址(详细到门牌号)" />
         </div>
         <div class="H-func-menu-list H-flexbox-horizontal H-background-white">
-            <div class="H-func-menu-item H-flex-item H-text-horizontal-center H-vertical-padding10" tapmode="active" onclick="comitImgData()">
+            <div id="zm" class="H-func-menu-item H-flex-item H-text-horizontal-center H-vertical-padding10" tapmode="active" onclick="comitImgData()">
                 <span class="H-icon H-theme1-bg H-center-all H-border-radius15-px H-block-margin-auto"><i class="aui-iconfont iconfont icon-zhaopian H-theme11-color"></i></span>
+                <img src="" id="zm">
                 <p class="H-font-size-13 H-margin-top5">
                     点击上传身份证正面
                 </p>
             </div>
-            <div class="H-func-menu-item H-flex-item H-text-horizontal-center H-vertical-padding10" tapmode="active" onclick="comitImgData()">
+            <div  id="fm" class="H-func-menu-item H-flex-item H-text-horizontal-center H-vertical-padding10" tapmode="active" onclick="comitImgData1()">
                 <span class="H-icon H-theme2-bg H-center-all H-border-radius15-px H-block-margin-auto"><i class="aui-iconfont iconfont icon-zhaopian H-theme11-color"></i></span>
+                <img src="">
                 <p class="H-font-size-13 H-margin-top5">
                     点击上传身份证反面
                 </p>
@@ -99,14 +101,6 @@
             var clazzNode = null;
             var model = null;
             apiready = function() {
-                var key = $api.getStorage('key');
-                $api.ajax('/user/'+key, 'get', null, function (ret, err) {
-                    if (ret) {
-                        $api.setStorage('user', ret.username );
-                    } else {
-                        $api.toast( err.msg );
-                    }
-                });
                 mcm = api.require('model');
                 model = api.require('model');
                 query = api.require('query');
@@ -118,6 +112,7 @@
                     url : 'https://d.apicloud.com'
                 });
             }
+            var us = $api.getStorage('user');
             function capPicture(callback) {
                 api.getPicture({
                     sourceType : 'camera',
@@ -131,7 +126,7 @@
             }
 
             function comitImgData() {
-                var us = $api.getStorage('user');
+                // var us = $api.getStorage('user');
                 capPicture(function(url) {
                     if (url) {
                         var dt = {
@@ -158,11 +153,72 @@
                     progress.step(ret.progress);
                 } else {
                     finishing();
-                    showAlert('上传成功');
-                    jindua();
+                    // showAlert('上传成功');
+                    jindua1();
+                    // if(ret.type && ret.type.indexOf('image') >= 0){
+                    //     //如果是图片上传成功则将上传结果显示到页面上
+                    //     html += "<img width=80 height=80 src='" + ret.url + "' />";
+                    //     document.getElementById('zm').innerHTML = html;
+                    // }
+                    // JSON.stringify(ret)
+                    // showAlert(ret.url)
+                    if(ret){
+                        // showAlert(JSON.stringify(ret));
+                        // JSON.stringify(ret);
+                        // $api.jsonToStr(ret)；
+                        // $api.setStorage('qwe', JSON.stringify(ret) );
+                        // showAlert(wer);
+                        var html = '';
+                        // var wer = $api.getStorage('qwe');
+                        // showAlert(ret.url)
+                        html += "<img width=50 height=50 src='../../../image/tu.png' />";
+                        document.getElementById('zm').innerHTML = html;  
+                    }else{
+                        // showAlert(JSON.stringify(err));
+                    }                  
                 }
             }
 
+
+
+            function comitImgData1() {
+                // var us = $api.getStorage('user');
+                capPicture(function(url) {
+                    if (url) {
+                        var dt = {
+                            file : {
+                                name : us, //设置文件名
+                                url : url //文件本地地址
+                            },
+                            values : {//保留字段
+                            }
+                        }
+                        progress.reset();
+                        model.uploadFile({
+                            data : dt,
+                            report : true
+                        }, updatePercent1);
+                    }
+                });
+            }
+
+            //更新进度
+            function updatePercent1(ret, err) {
+                if (0 == ret.state) {
+                    loading('进度：' + ret.progress);
+                    progress.step(ret.progress);
+                } else {
+                    finishing();
+                    jindua2();
+                    if(ret){
+                        var ht = '';
+                        ht += "<img width=50 height=50 src='../../../image/tu.png' />"; 
+                        $api.dom('#fm').innerHTML = ht;
+                    }else{
+                        
+                    }                  
+                }
+            }
             var clazz = "Endo";
 
 
@@ -181,7 +237,7 @@
                 } else if (!$api.val(xl)) {
                     $api.toast('不能为空！');
                 } else {
-                    var us = $api.getStorage('user');
+                    // var us = $api.getStorage('user');
                     var ac = value('xingming');
                     var bc = value('shenfen');
                     var ax = value('zhuzhi');
@@ -214,8 +270,42 @@
 
         function jindua(){
             var jin = "jindu";
-          var us = $api.getStorage('user');
+          // var us = $api.getStorage('user');
           var bc = '已提交身份信息';
+          var cx = {username:us, jindu:bc}
+          var param = {class:jin, value:cx};
+          loading();
+          mcm.insert(param, function(ret, err){
+              finishing();
+              if(ret){
+                 // showAlert("提交成功,请完善资料");
+              }else{
+                //  showAlert("提交失败，请检查网络设置！");
+              }
+          });           
+        }
+
+        function jindua1(){
+            var jin = "jindu";
+          // var us = $api.getStorage('user');
+          var bc = '已提交身份证正面';
+          var cx = {username:us, jindu:bc}
+          var param = {class:jin, value:cx};
+          loading();
+          mcm.insert(param, function(ret, err){
+              finishing();
+              if(ret){
+                 // showAlert("提交成功,请完善资料");
+              }else{
+                //  showAlert("提交失败，请检查网络设置！");
+              }
+          });           
+        }
+
+        function jindua2(){
+            var jin = "jindu";
+          // var us = $api.getStorage('user');
+          var bc = '已提交身份证反面';
           var cx = {username:us, jindu:bc}
           var param = {class:jin, value:cx};
           loading();

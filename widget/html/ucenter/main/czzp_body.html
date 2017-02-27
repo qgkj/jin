@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>周转宝</title>
+    <title>帮分期</title>
     <link href="../../../css/css/iconfont/iconfont.css" rel="stylesheet" />
     <link href="../../../css/css/Hui.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
@@ -57,7 +57,7 @@
         </div>
     <div class="card-container H-box-sizing-border-box">
         <div class="card-area H-theme-border-color-ccc H-center-all H-box-sizing-border-box" tapmode="active" onclick="comitImgData()">
-            <img src="../../../image/sfz.png" class="H-width-100-percent" alt="" title="" />
+            <img id="imga" src="../../../image/sfz.png" class="H-width-100-percent" alt="" title="" />
             <span class="H-icon H-border-radius-circle H-theme-background-color5 H-center-all"><i class="iconfont icon-552cc3b3b9fae H-theme-font-color-white"></i></span>
             <input type="hidden" />
         </div>
@@ -72,15 +72,9 @@
             var query = null;
             var clazzNode = null;
             var model = null;
+            var imgq = null;
+
             apiready = function() {
-                var key = $api.getStorage('key');
-                $api.ajax('/user/'+key, 'get', null, function (ret, err) {
-                    if (ret) {
-                        $api.setStorage('user', ret.username );
-                    } else {
-                        $api.toast( err.msg );
-                    }
-                });
                 mcm = api.require('model');
                 model = api.require('model');
                 query = api.require('query');
@@ -92,6 +86,7 @@
                     url : 'https://d.apicloud.com'
                 });
             }
+            var us = $api.getStorage('user');
             function capPicture(callback) {
                 api.getPicture({
                     sourceType : 'camera',
@@ -105,7 +100,7 @@
             }
 
             function comitImgData() {
-                var us = $api.getStorage('user');
+                // var us = $api.getStorage('user');
                 capPicture(function(url) {
                     if (url) {
                         var dt = {
@@ -123,6 +118,9 @@
                         }, updatePercent);
                     }
                 });
+
+
+
             }
 
             //更新进度
@@ -134,6 +132,14 @@
                     //finishing();
                     showAlert('上传成功');
                     jindua();
+                    zonghe();
+                    if(ret){
+                        var ht = '';
+                        ht += "<img width=50 height=50 src='../../../image/sfzcg.png' />"; 
+                        $api.dom('#imga').innerHTML = ht;
+                    }else{
+                        
+                    }  
                     api.closeWin();
                 }
             }
@@ -141,7 +147,7 @@
 
         function jindua(){
             var jin = "jindu";
-          var us = $api.getStorage('user');
+          // var us = $api.getStorage('user');
           var bc = '已提交持证信息';
           var cx = {username:us, jindu:bc}
           var param = {class:jin, value:cx};
@@ -153,7 +159,85 @@
               }else{
                 //  showAlert("提交失败，请检查网络设置！");
               }
-          });           
+          });  
+
+        }
+
+
+        function zonghe(){
+            // var us = $api.getStorage('user');
+                    query.createQuery(function(ret, err) {
+            if (ret && ret.qid) {
+                var queryId = ret.qid;
+
+                query.whereEqual({
+                    qid: queryId,
+                    column: "name",
+                    value: us
+                });
+
+                query.limit({
+                    qid:queryId,
+                    value:"20"
+                });
+
+                var model = api.require("model");
+
+                model.findAll({
+                    class: "file",
+                    qid: queryId
+                }, function(ret, err){
+                    if (ret) {
+                        
+                        // $api.getStorage('img1');
+                        var img1 = $api.setStorage('img1', JSON.stringify(ret) );
+                        alert(img1);
+                        imgq = ret[0].url;
+                        //alert(imgq);
+                        
+                    } else{
+                        alert("err: " + JSON.stringify(err));
+                    }                    
+                });
+            }
+        }); 
+                        query.createQuery(function(ret, err) {
+                    if (ret && ret.qid) {
+                        var queryId = ret.qid;
+
+                        query.whereEqual({
+                            qid: queryId,
+                            column: "username",
+                            value: us
+                        });
+
+                        query.limit({
+                            qid:queryId,
+                            value:"20"
+                        });
+
+                        var model = api.require("model");
+
+                        model.findAll({
+                            class: "Endo",
+                            qid: queryId
+                        }, function(ret, err){
+                            $api.setStorage('jin', JSON.stringify(ret) );
+                            var ws = $api.getStorage('jin');
+                            var model = api.require("model");
+                            model.updateById({
+                                class: "Endo",
+                                id: ret[0].id,
+                                value: {
+                                    img1: imgq
+                                }
+                            }, function(ret, err){
+                                alert("ret: " + JSON.stringify(ret) + "\nerr: " + JSON.stringify(err));
+                            });
+                        });
+                    }
+                }); 
+
         }
         </script>
         <script>

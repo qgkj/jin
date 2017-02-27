@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>周转宝</title>
+    <title>帮分期</title>
     <link href="../../../css/css/Hui.css" rel="stylesheet" type="text/css" />
     <style type="text/css"></style>
 </head>
@@ -60,14 +60,7 @@
         var mcm = null;
         var query = null;
         apiready = function(){
-            var key = $api.getStorage('key');
-                $api.ajax('/user/'+key, 'get', null, function (ret, err) {
-                    if (ret) {
-                        $api.setStorage('user', ret.username );
-                    } else {
-                        $api.toast( err.msg );
-                    }
-                });
+
             mcm = api.require('model');
             query = api.require('query');
             //在线编译正式版时，可以不用配置,APICloud会取当前应用的配置
@@ -77,6 +70,7 @@
                 url:'https://d.apicloud.com'
             });
         }
+        var us = $api.getStorage('user');
         
         var clazz = "lxr";
 
@@ -107,7 +101,7 @@
                 } else if (!$api.val(phone4)) {
                     $api.toast('不能为空！');
                 } else {
-                    var us = $api.getStorage('user');
+                    // var us = $api.getStorage('user');
                     var ac = value('name');
                     var bc = '父亲';
                     var ax = value('phone');
@@ -153,7 +147,7 @@
         
         function jindua(){
             var jin = "jindu";
-          var us = $api.getStorage('user');
+          // var us = $api.getStorage('user');
           var bc = '已提交联系人信息';
           var cx = {username:us, jindu:bc}
           var param = {class:jin, value:cx};
