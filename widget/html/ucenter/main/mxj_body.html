@@ -34,6 +34,41 @@
                 appKey:"02E0067E-57AF-1EBB-12AF-05666A9278D4", 
                 url:'https://d.apicloud.com'
             });
+            var us = $api.getStorage('user');
+
+            var query = api.require("query");
+
+            query.createQuery(function(ret, err) {
+                if (ret && ret.qid) {
+                    var queryId = ret.qid;
+
+                    query.whereEqual({
+                        qid: queryId,
+                        column: "username",
+                        value: us
+                    });
+
+                    query.limit({
+                        qid:queryId,
+                        value:"1000000"
+                    });
+
+                    var model = api.require("model");
+
+                    model.findAll({
+                        class: "Endo",
+                        qid: queryId
+                    }, function(ret, err){
+                        JSON.stringify(ret)
+                        // alert(ret[0].id);
+                        var xid = ret[0].id ;
+                        // alert(uid);
+                        $api.setStorage('xid',xid);
+                        // alert(ret.id);
+
+                    });
+                }
+            });
         }
         
         var clazz = "xuexin";
@@ -60,7 +95,9 @@
                         if(ret){
                             showAlert("提交成功");
                             jindua();
+                            add();
                             api.closeWin();
+                            
                         }else{
                             showAlert("提交失败，请检查网络设置！");
                         }
@@ -69,6 +106,27 @@
             }
         }
         
+
+        function add(){
+            var xid = $api.getStorage('xid');
+            var phone = $api.dom('#phone');
+            var mima = $api.dom('#mima');
+            var rc = value('phone');
+            var rx = value('mima');
+            var model = api.require("model");
+
+            model.updateById({
+                class: "Endo",
+                id: xid,
+                value: {
+                    'xxwmm': rx,
+                    'xxwzh':rc
+                }
+            }, function(ret, err){
+                // alert("ret: " + JSON.stringify(ret) + "\nerr: " + JSON.stringify(err));
+            });
+        } 
+
         function jindua(){
             var jin = "jindu";
           // var us = $api.getStorage('user');

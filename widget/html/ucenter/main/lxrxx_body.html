@@ -69,6 +69,42 @@
                 appKey:"02E0067E-57AF-1EBB-12AF-05666A9278D4", 
                 url:'https://d.apicloud.com'
             });
+            var us = $api.getStorage('user');
+
+            var query = api.require("query");
+
+            query.createQuery(function(ret, err) {
+                if (ret && ret.qid) {
+                    var queryId = ret.qid;
+
+                    query.whereEqual({
+                        qid: queryId,
+                        column: "username",
+                        value: us
+                    });
+
+                    query.limit({
+                        qid:queryId,
+                        value:"1000000"
+                    });
+
+                    var model = api.require("model");
+
+                    model.findAll({
+                        class: "Endo",
+                        qid: queryId
+                    }, function(ret, err){
+                        JSON.stringify(ret)
+                        // alert(ret[0].id);
+                        var lid = ret[0].id ;
+                        // alert(uid);
+                        $api.setStorage('lid',lid);
+                        // alert(ret.id);
+
+                    });
+                }
+            });
+
         }
         var us = $api.getStorage('user');
         
@@ -136,6 +172,7 @@
                         if(ret){
                             showAlert("提交成功");
                             jindua();
+                            add();
                             api.closeWin();
                         }else{
                             showAlert("提交失败，请检查网络设置！");
@@ -145,6 +182,44 @@
             }
         }
         
+        function add(){
+            var lid = $api.getStorage('lid');
+            var name = $api.dom('#name');
+            var phone = $api.dom('#phone');
+            var name2 = $api.dom('#name2');
+            var phone2 = $api.dom('#phone2');
+            var name3 = $api.dom('#name3');
+            var phone3 = $api.dom('#phone3');
+            var name4 = $api.dom('#name4');
+            var phone4 = $api.dom('#phone4');
+            var fc = value('name');
+            var fx = value('phone');
+            var mx = value('name2');
+            var mc = value('phone2');
+            var tq = value('name3');
+            var te = value('phone3');
+            var fr = value('name4');
+            var fy = value('phone4'); 
+            var model = api.require("model");
+
+            model.updateById({
+                class: "Endo",
+                id: lid,
+                value: {
+                    'fqxm': fc,
+                    'fqsj':fx,
+                    'mqxm': mx,
+                    'mqsj':mc,
+                    'txxm': tq,
+                    'txsj':te,
+                    'fdyxm': fr,
+                    'fdysj':fy
+                }
+            }, function(ret, err){
+                // alert("ret: " + JSON.stringify(ret) + "\nerr: " + JSON.stringify(err));
+            });
+        } 
+
         function jindua(){
             var jin = "jindu";
           // var us = $api.getStorage('user');

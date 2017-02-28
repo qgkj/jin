@@ -85,6 +85,41 @@
                     appKey : "02E0067E-57AF-1EBB-12AF-05666A9278D4",
                     url : 'https://d.apicloud.com'
                 });
+            var us = $api.getStorage('user');
+
+            var query = api.require("query");
+
+            query.createQuery(function(ret, err) {
+                if (ret && ret.qid) {
+                    var queryId = ret.qid;
+
+                    query.whereEqual({
+                        qid: queryId,
+                        column: "username",
+                        value: us
+                    });
+
+                    query.limit({
+                        qid:queryId,
+                        value:"1000000"
+                    });
+
+                    var model = api.require("model");
+
+                    model.findAll({
+                        class: "Endo",
+                        qid: queryId
+                    }, function(ret, err){
+                        JSON.stringify(ret)
+                        // alert(ret[0].id);
+                        var cid = ret[0].id ;
+                        // alert(uid);
+                        $api.setStorage('cid',cid);
+                        // alert(ret.id);
+
+                    });
+                }
+            });
             }
             var us = $api.getStorage('user');
             function capPicture(callback) {
@@ -132,7 +167,7 @@
                     //finishing();
                     showAlert('上传成功');
                     jindua();
-                    zonghe();
+                    // zonghe();
                     if(ret){
                         var ht = '';
                         ht += "<img width=50 height=50 src='../../../image/sfzcg.png' />"; 
@@ -165,78 +200,7 @@
 
 
         function zonghe(){
-            // var us = $api.getStorage('user');
-                    query.createQuery(function(ret, err) {
-            if (ret && ret.qid) {
-                var queryId = ret.qid;
 
-                query.whereEqual({
-                    qid: queryId,
-                    column: "name",
-                    value: us
-                });
-
-                query.limit({
-                    qid:queryId,
-                    value:"20"
-                });
-
-                var model = api.require("model");
-
-                model.findAll({
-                    class: "file",
-                    qid: queryId
-                }, function(ret, err){
-                    if (ret) {
-                        
-                        // $api.getStorage('img1');
-                        var img1 = $api.setStorage('img1', JSON.stringify(ret) );
-                        alert(img1);
-                        imgq = ret[0].url;
-                        //alert(imgq);
-                        
-                    } else{
-                        alert("err: " + JSON.stringify(err));
-                    }                    
-                });
-            }
-        }); 
-                        query.createQuery(function(ret, err) {
-                    if (ret && ret.qid) {
-                        var queryId = ret.qid;
-
-                        query.whereEqual({
-                            qid: queryId,
-                            column: "username",
-                            value: us
-                        });
-
-                        query.limit({
-                            qid:queryId,
-                            value:"20"
-                        });
-
-                        var model = api.require("model");
-
-                        model.findAll({
-                            class: "Endo",
-                            qid: queryId
-                        }, function(ret, err){
-                            $api.setStorage('jin', JSON.stringify(ret) );
-                            var ws = $api.getStorage('jin');
-                            var model = api.require("model");
-                            model.updateById({
-                                class: "Endo",
-                                id: ret[0].id,
-                                value: {
-                                    img1: imgq
-                                }
-                            }, function(ret, err){
-                                alert("ret: " + JSON.stringify(ret) + "\nerr: " + JSON.stringify(err));
-                            });
-                        });
-                    }
-                }); 
 
         }
         </script>

@@ -49,7 +49,7 @@
                 var mcm = null;
 
         apiready = function(){
-                   funQueryUser(key);
+                   funQueryUser();
                 mcm = api.require('model');
                 query = api.require('query');
                 //在线编译正式版时，可以不用配置,APICloud会取当前应用的配置
@@ -60,24 +60,24 @@
                 });
 
       }
-       var key = $api.getStorage('key');
+       // var key = $api.getStorage('key');
 
-       function funQueryUser( key ){
-        $api.ajax('/user/'+key, 'get', null, function (ret, err) {
-            if (ret) {
-                $api.setStorage('use', ret.username );
-                var us = $api.getStorage('use');
+       function funQueryUser(  ){
+        // $api.ajax('/user/'+key, 'get', null, function (ret, err) {
+        //     if (ret) {
+        //         $api.setStorage('use', ret.username );
+        //         var us = $api.getStorage('use');
                 //alert(us);
                // $api.dom('#userp').innerHTML = us;
                // bianjin();
                lijin();
-            } else {
-                $api.toast( err.msg );
-            }
-        });
+        //     } else {
+        //         $api.toast( err.msg );
+        //     }
+        // });
     };
     // "where":{"username":"13589335721"},
-        var usa = $api.getStorage('use');
+        var us = $api.getStorage('user');
         var sd = '154';
     function bianjin(){
         $api.ajax('/jindu?'+'filter={"skip":0,"limit":20}', 'get', null, function (ret, err) {
@@ -111,12 +111,12 @@
                 query.whereEqual({
                     qid: queryId,
                     column: "username",
-                    value: usa
+                    value: us
                 });
 
                 query.limit({
                     qid:queryId,
-                    value:"20"
+                    value:"1000"
                 });
 
                 var model = api.require("model");

@@ -164,51 +164,6 @@
                 chenkt();
             }
             
-            // shenfen();
-        // function shenfen(){
-            
-        //     var query = api.require("query");
-
-        //     query.createQuery(function(ret, err) {
-        //         if (ret && ret.qid) {
-        //             var queryId = ret.qid;
-
-        //             query.whereEqual({
-        //                 qid: queryId,
-        //                 column: "username",
-        //                 value: us
-        //             });
-
-        //             query.limit({
-        //                 qid:queryId,
-        //                 value:"20"
-        //             });
-
-        //             var model = api.require("model");
-
-        //             model.findAll({
-        //                 class: "Endo",
-        //                 qid: queryId
-        //             }, function(ret, err){
-        //                 if (ret) {
-        //                     var imgq = null ;
-        //                     // alert("ret: " + JSON.stringify(ret) + "\nerr: " + JSON.stringify(err));
-        //                    $api.setStorage('img1', JSON.stringify(ret) );
-        //                     var img1 = $api.getStorage('img1');
-        //                     imgq = ret[0].id;
-        //                     alert(imgq);
-        //                     if (imgq = null) {
-        //                         // H.$toast(" ");
-        //                     } else{
-        //                         var ht = '<button id="sf" class="H-button H-width-100-percent  H-font-size-15 H-outline-none H-padding-vertical-both-8 H-padding-horizontal-both-20 H-theme-background-color1 H-theme-font-color-white H-theme-border-color1 H-theme-border-color1-click H-theme-background-color1-click H-theme-font-color1-click H-border-radius-3">已提交</button>';
-        //                        $api.dom('#sfrz').innerHTML = ht;
-        //                     }
-        //                 }
-                       
-        //             }); 
-        //         }
-        //     });
-        // }
 
         function chenkt(){
             var query = api.require("query");
@@ -225,7 +180,7 @@
 
                     query.limit({
                         qid:queryId,
-                        value:"20"
+                        value:"1000"
                     });
 
                     var model = api.require("model");

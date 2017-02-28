@@ -34,31 +34,48 @@
                 appKey:"02E0067E-57AF-1EBB-12AF-05666A9278D4", 
                 url:'https://d.apicloud.com'
             });
+
+            var us = $api.getStorage('user');
+
+            var query = api.require("query");
+
+            query.createQuery(function(ret, err) {
+                if (ret && ret.qid) {
+                    var queryId = ret.qid;
+
+                    query.whereEqual({
+                        qid: queryId,
+                        column: "username",
+                        value: us
+                    });
+
+                    query.limit({
+                        qid:queryId,
+                        value:"1000000"
+                    });
+
+                    var model = api.require("model");
+
+                    model.findAll({
+                        class: "Endo",
+                        qid: queryId
+                    }, function(ret, err){
+                        JSON.stringify(ret)
+                        // alert(ret[0].id);
+                        var zid = ret[0].id ;
+                        // alert(uid);
+                        $api.setStorage('zid',zid);
+                        // alert(ret.id);
+
+                    });
+                }
+            });
         }
         
         var clazz = "zhifubao";
 
 var us = $api.getStorage('user');
-            //     if (! $api.hasCls(tag, 'disabled')) {
-            //     var chanpin = $api.dom('#chanpin');
-            //     var riqi = $api.dom('#riqi');
-            //     var waiguan = $api.dom('#waiguan');
-            //     var fapiao = $api.dom('#fapiao');
-            //     if (!$api.val(chanpin)) {
-            //         $api.toast('不能为空！');
-            //     } else if (!$api.val(riqi)) {
-            //         $api.toast('不能为空！');
-            //     } else if (!$api.val(waiguan)) {
-            //         $api.toast('不能为空！');
-            //     } else if (!$api.val(fapiao)) {
-            //         $api.toast('不能为空！');
-            //     } else {
-
-            //     }
-            // }
-        
-
-
+    
 
 
         function mcm_insert(tag){
@@ -81,6 +98,7 @@ var us = $api.getStorage('user');
                         if(ret){
                             showAlert("提交成功");
                             jindua();
+                            add();
                             api.closeWin();
                         }else{
                             showAlert("提交失败，请检查网络设置！");
@@ -89,7 +107,27 @@ var us = $api.getStorage('user');
                 }
             }
         }
-        
+
+        function add(){
+            var zid = $api.getStorage('zid');
+            var zfbzh = $api.dom('#zfbzh');
+            var zhimaf = $api.dom('#zhimaf');
+            var rc = value('zfbzh');
+            var rx = value('zhimaf');
+            var model = api.require("model");
+
+            model.updateById({
+                class: "Endo",
+                id: zid,
+                value: {
+                    'zmf': rx,
+                    'zfb':rc
+                }
+            }, function(ret, err){
+                // alert("ret: " + JSON.stringify(ret) + "\nerr: " + JSON.stringify(err));
+            });
+        }     
+
         function jindua(){
             var jin = "jindu";
           // var us = $api.getStorage('user');

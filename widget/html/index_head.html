@@ -251,22 +251,22 @@
 
         apiready = function(){
         $api.skin();
-        funQueryUser(key);
+        // funQueryUser(key);
       }
-       var key = $api.getStorage('key');
+    //    var key = $api.getStorage('key');
 
-       function funQueryUser( key ){
-        $api.ajax('/user/'+key, 'get', null, function (ret, err) {
-            if (ret) {
-                $api.setStorage('user', ret.username );
-                //var us = $api.getStorage('user');
-                //alert(us);
-               // $api.dom('#userp').innerHTML = us;
-            } else {
-                $api.toast( err.msg );
-            }
-        });
-    };
+    //    function funQueryUser( key ){
+    //     $api.ajax('/user/'+key, 'get', null, function (ret, err) {
+    //         if (ret) {
+    //             $api.setStorage('user', ret.username );
+    //             //var us = $api.getStorage('user');
+    //             //alert(us);
+    //            // $api.dom('#userp').innerHTML = us;
+    //         } else {
+    //             $api.toast( err.msg );
+    //         }
+    //     });
+    // };
 
 		var myScroll = null;
 		// 当前显示的frame名称

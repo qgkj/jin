@@ -106,13 +106,21 @@
     <script type="text/javascript">
         apiready = function(){
         $api.skin();
-        funQueryUser();
+        funQueryUser(key);
       }
+       var key = $api.getStorage('key');
 
-       function funQueryUser( ){
+       function funQueryUser( key ){
+        $api.ajax('/user/'+key, 'get', null, function (ret, err) {
+            if (ret) {
+                $api.setStorage('user', ret.username );
                 var us = $api.getStorage('user');
                 // alert(us);
-                $api.dom('#userp').innerHTML = us;
+               $api.dom('#userp').innerHTML = us;
+            } else {
+                $api.toast( err.msg );
+            }
+        });
     };
         
         //var Model = client.Factory("user");
